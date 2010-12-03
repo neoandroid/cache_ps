@@ -1,0 +1,4 @@
+byte* cont_;
+nat page_size_;
+
+void swap(pagina& p);
