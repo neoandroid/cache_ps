@@ -6,6 +6,6 @@ struct nodo {
        nodo * ant;      //puntero al anterior nodo
 };
   nodo *prim , ult;      //punteros al primer y ultimo elemento de la cache
-  vector<pagina> v();    //estructura donde almacenaremos las paginas de la cache
+  vector<file::pagina> v;    //estructura donde almacenaremos las paginas de la cache
   nat size;              //tamaño actual de la cache
 };

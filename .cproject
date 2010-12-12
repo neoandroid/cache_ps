@@ -56,9 +56,7 @@
 							<targetPlatform id="cdt.managedbuild.target.gnu.platform.exe.debug" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.base.400252227" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base.1657087964"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.149948728" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.528348032">
-								<option id="gnu.cpp.compiler.option.include.paths.894842049" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cache/src/ps}&quot;"/>
-								</option>
+								<option id="gnu.cpp.compiler.option.include.paths.894842049" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.763957577" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.debug.732667891" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.debug.1133170181">

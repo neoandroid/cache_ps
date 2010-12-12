@@ -3,8 +3,8 @@
 #define _FILE_HPP
 
 #include <fstream>
-#include <ps/error>
-#include <ps/util>
+#include <error>
+#include <util>
 
 using namespace std;
 using util::nat;
