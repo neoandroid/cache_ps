@@ -1,0 +1,19 @@
+# file
+11 file El fichero no existe.
+12 file El fichero ya existe.
+13 file El fichero no puede abrirse.
+14 file El tamanyo de las paginas no puede ser nulo.
+15 file El indice de la pagina esta fuera de rango.
+16 file::pagina El indice del byte esta fuera de rango.
+
+# cfile
+21 cfile El indice del elemento esta fuera de rango.
+22 cfile El tamanyo de la pagina es insuficiente.
+
+# cache's
+31 cache La cache no esta asociada a un fichero.
+32 cache El tamanyo de la cache no puede ser nulo.
+
+# tasoc
+41 tasoc El tamanyo de la tabla asociativa es incorrecto.
+42 tasoc La tabla esta llena.

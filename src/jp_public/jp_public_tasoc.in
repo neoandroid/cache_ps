@@ -1,0 +1,488 @@
+##!-----------------------------------
+##! JUEGO DE PRUEBAS DE LA CLASE TASOC
+##!-------------------------------------
+##!
+##! CLASE TASOC donde elemento se ha instanciado con
+##! int y palabra
+##!
+##! 100 Tabla con M==0 y Mt>=M
+##! 101 Tabla con M!=0 y Mt<=M
+##! 102 Tabla con M!=0 y Mt-M>=M
+##!     102.1 M==1 y Mt==3
+##!     102.2 M==1 y Mt==2
+##! 103 Tabla con M!=0 y Mt>M 
+##!     103.1 M==10 y Mt==13 : ejemplo del enunciado
+##!	103.2 M==10 y Mt==13 : completamente llena
+##!	103.3 M==10 y Mt==13 : completamente llena + 1
+##!     103.4 M==10 y Mt==13 : sin colision + 3
+##! 104 Tabla con M==10 y Mt==19
+##!     104.1 casilla ocupada y zona de excedentes llena
+##!     104.2 elementos en zona de excedente, elemento en
+##!           no zona de excedente y 
+##!           zona de excedentes llena
+##! 106 Tabla con M==601 y Mt==661 insertamos 500 palabras
+##!
+##!
+% rm -f *.tas 
+##!
+##!-----------------------------------------
+##100 Tabla con M==0 y Mt==M  Mt>M
+##!-----------------------------------------
+##!
+init pC cache_LRU 3
+init TH tasoc<int> ftasoc.tas pC 0 0
+#Error::tasoc:41:El tamanyo de la tabla asociativa es incorrecto.
+% rm -rf ftasoc.tas
+init TH tasoc<int> ftasoc.tas pC 0 5
+#Error::tasoc:41:El tamanyo de la tabla asociativa es incorrecto.
+% rm -rf *.tas
+##!
+##!-----------------------------------------
+##101 Tabla con M==10 y Mt==M  Mt<M
+##!-----------------------------------------
+##!
+init TH tasoc<int> ftasoc.tas pC 10 10
+sizet
+#0
+printt
+#
+% rm -rf *.tas
+TH destroy
+init TH tasoc<int> ftasoc.tas pC 10 5
+#Error::tasoc:41:El tamanyo de la tabla asociativa es incorrecto.
+% rm -rf *.tas
+##!
+##!-----------------------------------------
+##102 Tabla con M==1 y Mt==3 y Mt==2 y Mt==1
+##!-----------------------------------------
+##!
+init pC cache_FIFO 3
+init TH tasoc<int> ftasoc.tas pC 1 3
+sizet
+#0
+contt 17
+#false
+contt 0
+#false
+contt 1
+#false
+printt
+#
+##!
+inst 17
+sizet
+#1
+printt
+#<0,-1,17>
+inst 0
+sizet
+#2
+printt
+#<0,2,17> <2,-1,0>
+inst 1
+sizet
+#3
+printt
+#<0,2,17> <1,-1,1> <2,1,0>
+inst 2222
+#Error::tasoc:42:La tabla esta llena.
+sizet
+#3
+printt
+#<0,2,17> <1,-1,1> <2,1,0>
+##!
+contt 1
+#true
+contt 2222
+#false
+contt 17
+#true
+contt 0
+#true
+##!
+##!
+TH destroy
+% rm -rf *.tas
+init pC2 cache_LRU 2
+##!
+init TH tasoc<int> ftasoc.tas pC2 1 2
+##!
+##!
+inst 1
+inst 2222
+inst 17
+#Error::tasoc:42:La tabla esta llena.
+##!
+contt 17
+#false
+contt 2222
+#true
+##!
+sizet
+#2
+printt
+#<0,1,1> <1,-1,2222>
+##!
+##!
+TH destroy
+% rm -rf *.tas
+##!
+init TH tasoc<int> ftasoc.tas pC 1 1
+##!
+##!
+inst 1
+inst 17
+#Error::tasoc:42:La tabla esta llena.
+##!
+contt 17
+#false
+contt 1
+#true
+##!
+sizet
+#1
+printt
+#<0,-1,1>
+##!
+TH destroy
+##!
+##!-----------------------------------------
+##103 Tabla con M==10 y Mt==13
+##!-----------------------------------------
+##103.1 Estrategia VICH: ejemplo del enunciado
+##!-----------------------------------------
+##!
+% rm -rf *.tas
+init TH tasoc<int> ftasoc.tas pC 10 13
+##!
+sizet
+#0
+##!
+inst 17
+inst 25
+inst 37
+printt
+#<5,-1,25> <7,12,17> <12,-1,37>
+inst 65
+printt
+#<5,11,25> <7,12,17> <11,-1,65> <12,-1,37>
+inst 21
+inst 12
+inst 47
+printt
+#<1,-1,21> <2,-1,12> <5,11,25> <7,12,17> <10,-1,47> <11,-1,65> <12,10,37>
+inst 85
+printt
+#<1,-1,21> <2,-1,12> <5,11,25> <7,12,17> <9,-1,85> <10,-1,47> <11,9,65> <12,10,37>
+inst 95
+printt
+#<1,-1,21> <2,-1,12> <5,11,25> <7,12,17> <8,9,95> <9,-1,85> <10,-1,47> <11,8,65> <12,10,37>
+inst 18
+printt
+#<1,-1,21> <2,-1,12> <5,11,25> <6,9,18> <7,12,17> <8,6,95> <9,-1,85> <10,-1,47> <11,8,65> <12,10,37>
+##!
+contt 18
+#true
+contt 95
+#true
+contt 37
+#true
+contt 85
+#true
+contt 12
+#true
+contt 21
+#true
+contt 47
+#true
+contt 65
+#true
+contt 25
+#true
+contt 17
+#true
+##!
+sizet
+#10
+##!
+##!-----------------------------------------
+##103.2 introducimos 3 elementos hasta llenar la tabla
+##!-----------------------------------------
+##!
+inst 31
+inst 42
+inst 33
+##!
+contt 31
+#true
+contt 105
+#false
+contt 42
+#true
+contt 65
+#true
+contt 33
+#true
+contt 44
+#false
+##!
+sizet
+#13
+##!
+printt
+#<0,-1,33> <1,4,21> <2,3,12> <3,0,42> <4,-1,31> <5,11,25> <6,9,18> <7,12,17> <8,6,95> <9,-1,85> <10,-1,47> <11,8,65> <12,10,37>
+##!
+##!-----------------------------------------
+##103.3 introducimos elementos en una tabla llena
+##!-----------------------------------------
+##!
+inst 105
+#Error::tasoc:42:La tabla esta llena.
+inst 31
+inst 42
+inst 65
+inst 995
+#Error::tasoc:42:La tabla esta llena.
+##!
+sizet
+#13
+##!
+printt
+#<0,-1,33> <1,4,21> <2,3,12> <3,0,42> <4,-1,31> <5,11,25> <6,9,18> <7,12,17> <8,6,95> <9,-1,85> <10,-1,47> <11,8,65> <12,10,37>
+##!
+TH destroy
+##!
+##!-----------------------------------------
+##103.4 Se llena sin colisiones y luego se llena
+##!-----------------------------------------
+% rm -rf *.tas 
+init TH tasoc<int> ftasoc.tas pC 10 13
+sizet
+#0
+printt
+#
+##!
+inst 50
+inst 51
+inst 52
+inst 53
+inst 54
+inst 55
+inst 56
+inst 57
+inst 58
+inst 59
+inst 60
+inst 61
+inst 62
+inst 63
+#Error::tasoc:42:La tabla esta llena.
+##!
+sizet
+#13
+printt
+#<0,12,50> <1,11,51> <2,10,52> <3,-1,53> <4,-1,54> <5,-1,55> <6,-1,56> <7,-1,57> <8,-1,58> <9,-1,59> <10,-1,62> <11,-1,61> <12,-1,60>
+##!
+TH destroy
+##!
+##!-----------------------------------------
+##104 Tabla con M==10 y Mt==19
+##!-----------------------------------------
+##104.1 casilla ocupada y zona de excedentes llena
+##!-----------------------------------------
+% rm -rf *.tas
+init TH tasoc<int> ftasoc.tas pC 10 19
+sizet
+#0
+##!
+inst 17
+inst 25
+inst 37
+printt
+#<5,-1,25> <7,18,17> <18,-1,37>
+inst 65
+printt
+#<5,17,25> <7,18,17> <17,-1,65> <18,-1,37>
+inst 21
+inst 12
+inst 47
+printt
+#<1,-1,21> <2,-1,12> <5,17,25> <7,18,17> <16,-1,47> <17,-1,65> <18,16,37>
+inst 85
+inst 95
+inst 18
+printt
+#<1,-1,21> <2,-1,12> <5,17,25> <7,18,17> <8,-1,18> <14,-1,95> <15,14,85> <16,-1,47> <17,15,65> <18,16,37>
+##!
+##!
+sizet
+#10
+##!
+inst 31
+inst 42
+inst 82
+inst 92
+printt
+#<1,13,21> <2,12,12> <5,17,25> <7,18,17> <8,-1,18> <10,-1,92> <11,10,82> <12,11,42> <13,-1,31> <14,-1,95> <15,14,85> <16,-1,47> <17,15,65> <18,16,37>
+##!
+##!
+sizet
+#14
+##!
+inst 52
+inst 29
+inst 39
+inst 49
+printt
+#<1,13,21> <2,12,12> <3,4,49> <4,6,39> <5,17,25> <6,-1,29> <7,18,17> <8,-1,18> <9,3,52> <10,9,92> <11,10,82> <12,11,42> <13,-1,31> <14,-1,95> <15,14,85> <16,-1,47> <17,15,65> <18,16,37>
+##!
+inst 62
+printt
+#<0,9,62> <1,13,21> <2,12,12> <3,4,49> <4,6,39> <5,17,25> <6,-1,29> <7,18,17> <8,-1,18> <9,3,52> <10,0,92> <11,10,82> <12,11,42> <13,-1,31> <14,-1,95> <15,14,85> <16,-1,47> <17,15,65> <18,16,37>
+##!
+sizet
+#19
+##!
+contt 72
+#false
+contt 62
+#true
+contt 52
+#true
+contt 102
+#false
+contt 49
+#true
+contt 65
+#true
+contt 29
+#true
+contt 82
+#true
+contt 47
+#true
+##!
+TH destroy
+##!
+##!-----------------------------------------
+##104.2 zona de excedentes llena
+##!-----------------------------------------
+% rm -rf *.tas
+init TH tasoc<int> ftasoc.tas pC 10 19
+sizet
+#0
+printt
+#
+##!
+inst 17
+inst 25
+inst 37
+printt
+#<5,-1,25> <7,18,17> <18,-1,37>
+inst 65
+printt
+#<5,17,25> <7,18,17> <17,-1,65> <18,-1,37>
+inst 21
+inst 12
+inst 47
+printt
+#<1,-1,21> <2,-1,12> <5,17,25> <7,18,17> <16,-1,47> <17,-1,65> <18,16,37>
+inst 85
+inst 95
+inst 18
+printt
+#<1,-1,21> <2,-1,12> <5,17,25> <7,18,17> <8,-1,18> <14,-1,95> <15,14,85> <16,-1,47> <17,15,65> <18,16,37>
+##!
+##!
+sizet
+#10
+##!
+inst 31
+inst 42
+inst 82
+inst 92
+printt
+#<1,13,21> <2,12,12> <5,17,25> <7,18,17> <8,-1,18> <10,-1,92> <11,10,82> <12,11,42> <13,-1,31> <14,-1,95> <15,14,85> <16,-1,47> <17,15,65> <18,16,37>
+##!
+contt 31
+#true
+contt 42
+#true
+contt 82
+#true
+contt 92
+#true
+contt 28
+#false
+contt 38
+#false
+contt 52
+#false
+##!
+sizet
+#14
+##!
+inst 28
+inst 38
+inst 52
+inst 62
+inst 72
+printt
+#<0,3,72> <1,13,21> <2,12,12> <3,4,62> <4,-1,52> <5,17,25> <6,9,38> <7,18,17> <8,6,18> <9,-1,28> <10,0,92> <11,10,82> <12,11,42> <13,-1,31> <14,-1,95> <15,14,85> <16,-1,47> <17,15,65> <18,16,37>
+##!
+sizet
+#19
+##!
+contt 2
+#false
+inst 2
+#Error::tasoc:42:La tabla esta llena.
+contt 105
+#false
+contt 62
+#true
+contt 52
+#true
+contt 102
+#false
+contt 49
+#false
+contt 65
+#true
+contt 28
+#true
+contt 38
+#true
+contt 72
+#true
+contt 92
+#true
+contt 85
+#true
+##!
+TH destroy
+##!
+##!-----------------------------------------
+##106 Tabla con M==601 y Mt==661 con 496 palabras diferentes
+##!   mas 3 palabras repetidas varias veces 
+##!   (abanicar 3, transitorio 4, recibir 2)
+##!-----------------------------------------
+% rm -rf *.tas
+init pCpal cache_FIFO 7
+init TH tasoc<palabra> ftasoc.tas pCpal 601 661
+sizet
+#0
+printt
+#
+##!
+load dicc500.in
+##!
+sizet
+#494
+printt
+#<0,527,FANTASTICO> <1,-1,MOCHILA> <3,-1,INDESCIFRABLE> <5,-1,ALBARAN> <6,-1,NUBLADO> <10,-1,CHUPADA> <11,-1,ALCAHUETE> <13,397,ACUCIAR> <16,-1,NON> <20,502,BALLENERO> <21,-1,EPIGLOTIS> <22,636,GASOIL> <24,432,ALBORNOZ> <26,-1,RESPIRACION> <29,542,JOYA> <31,-1,ZOPENCO> <32,-1,TEATRAL> <33,-1,AMAR> <34,-1,CRISTIANAR> <35,-1,ABATIMIENTO> <38,-1,POSIBILIDAD> <39,620,RESURGIR> <40,-1,ATEO> <41,-1,DEPRECIAR> <42,-1,INVIERNO> <44,-1,SU> <49,428,NATURAL> <50,647,FRUTAS> <52,-1,BUFANDA> <53,-1,ABANICO> <55,-1,MANICOMIO> <57,-1,FIEREZA> <58,475,LATA> <60,-1,CONGELAR> <61,-1,TRASLITERAR> <63,472,INSTOSLAYABLE> <66,-1,ALZADO> <67,-1,INMUNDO> <68,-1,HERRERIA> <69,-1,APUNTAR> <70,-1,TROTAMUNDOS> <71,-1,ELASTICO> <72,-1,LICENCIATURA> <73,-1,ESTAMENTO> <74,617,DICIEMBRE> <75,449,RETICENTE> <76,-1,FLUIDEZ> <78,631,RECORRER> <80,-1,CARNICERIA> <82,-1,PROPAROXITONO> <83,-1,LIOSO> <84,-1,ANDRAJO> <85,-1,TUMBONA> <86,-1,SOGA> <87,-1,EXIGIR> <89,-1,CHAPARRAL> <91,-1,TRILLON> <92,-1,TIENDA> <93,-1,AMOTINAR> <96,-1,INSTUMISION> <97,436,PONCHO> <99,-1,BEBE> <100,-1,HOMOSEXUAL> <101,-1,INTEGRANTE> <102,-1,TRIMESTRE> <103,639,CASTANAZO> <104,-1,DESPRENDIDO> <106,648,CANSAR> <108,650,CACHARRERIA> <109,-1,ALPINISMO> <110,-1,AZUCARERO> <111,602,GUADALAJARENO> <114,-1,HERETICO> <115,-1,COMPRESA> <116,582,AUDITORIA> <117,-1,INSTISTENCIA> <120,-1,AUTOCRACIA> <123,-1,BROMISTA> <124,640,CARTERISTA> <125,-1,ELEMENTO> <126,560,DEBIL> <127,-1,CONGELADOR> <129,-1,ARPA> <130,573,RECIBIR> <132,-1,TUBERCULOSO> <136,-1,MODELO> <138,-1,YO> <139,-1,ABADESA> <141,-1,GEMIDO> <142,518,ADMIRATIVO> <143,626,CASTANETEO> <144,448,NOMADISMO> <145,-1,ARAGONES> <148,-1,PINTURERO> <149,-1,DOCTRINARIO> <150,533,AJUSTICIAR> <152,-1,LETRA> <154,-1,ACORAZONADO> <156,652,MANOJO> <157,-1,IMPASIBILIDAD> <158,-1,TILO> <160,506,NATURALIZAR> <161,551,PROMONTORIO> <163,-1,LEOPARDO> <164,-1,FILMAR> <165,-1,BAILABLE> <166,658,ARABE> <167,625,AHOGADILLA> <168,-1,VENTA> <169,604,DELEITAR> <170,-1,HIPOTENUSA> <172,470,REBUSCAR> <176,-1,APICE> <179,395,CABALLERO> <180,413,AVISPA> <181,-1,GIMNASTICO> <184,633,HOSTELERIA> <186,623,AUDICION> <187,-1,DESPIOJAR> <189,-1,ELECTRIZANTE> <195,484,ENCABEZAMIENTO> <196,589,HOSTILIDAD> <199,-1,ASEMEJAR> <201,-1,DESPREOCUPACION> <205,-1,BALADA> <207,587,BISUTERIA> <209,654,APANAR> <210,-1,GERANIO> <213,434,ENCOFRAR> <214,-1,JOVIAL> <215,-1,CATE> <217,496,BERZA> <218,-1,DESPERDIGAMIENTO> <221,-1,BOLA> <222,-1,AGENTE> <223,-1,FOLLAR> <224,-1,AGENCIA> <226,-1,EL> <227,482,MACEDONIA> <228,-1,SULFATAR> <236,-1,MUEBLES> <238,473,CHAQUETA> <239,-1,APARICION> <240,-1,DESENLAZAR> <241,-1,TRIUNFAR> <242,655,PARADOR> <246,-1,AJENO> <247,423,AVISPADO> <248,-1,CASTOR> <250,504,MANIFESTANTE> <252,-1,AGUERRIDO> <257,-1,BOHEMIA> <259,-1,INTOLERABLE> <260,-1,GALERIAS> <264,534,JUGO> <265,-1,JADE> <266,-1,ALCOHOLERO> <268,497,SOBAR> <270,657,APLIQUE> <271,-1,FUEGO> <272,-1,AVANZADA> <273,-1,RES> <276,-1,RESPECTIVAMENTE> <278,-1,IMPERDIBLE> <283,-1,FESTIVAL> <285,-1,ALETAS> <287,-1,AMANUENSE> <289,-1,DESISTIR> <294,516,GASTRONOMIA> <295,-1,SEQUITO> <296,608,ALZACUELLO> <298,564,COCHE> <300,501,SUPEDITAR> <301,-1,DESPIADADO> <302,-1,INSTUFICIENTE> <303,-1,VIAJANTE> <309,-1,CEREALISTA> <310,-1,DOCUMENTACION> <312,-1,BRONCO> <314,411,AJUSTICIAMIENTO> <317,-1,SAYO> <321,-1,TRIPTONGO> <323,-1,PROFUGO> <324,457,HEGIRA> <326,-1,CAMISA> <327,399,BALOMPIE> <328,-1,IMPRESIONISTA> <330,630,IMPUGNAR> <333,605,CRUSTACEO> <335,-1,CE> <336,-1,CORDIAL> <339,-1,PARAGUAS> <340,546,CONFERENCIA> <341,559,MANOMETRO> <342,-1,ASILO> <344,-1,SILLON> <345,508,HINDUISMO> <346,-1,ASUNTO> <347,-1,ESTAMPIDO> <348,438,ANTRO> <351,-1,ARDER> <352,545,HIPERTENSION> <354,-1,CEREBRAL> <356,462,CONQUISTADOR> <358,418,ABANICAR> <359,-1,BROCHE> <360,-1,SUBSTITUTO> <361,-1,CALVICIE> <362,649,ATROFIA> <364,653,SUPERVISAR> <365,638,CLAVEL> <366,491,AHORRO> <369,-1,LAUD> <370,583,CUESTIONAR> <371,593,EMBALSE> <375,622,BICOCA> <376,616,BARCO> <377,581,BOGAVANTE> <379,-1,VERANEO> <383,600,MANOTEAR> <384,592,ARABIGO> <385,-1,COLECTIVIZACION> <386,515,DESPEREZARSE> <387,-1,HEREJE> <388,-1,ABANIQUEO> <390,471,CABEZUDO> <391,-1,GRASA> <393,415,PAN> <395,-1,REBELARSE> <396,557,PROBLEMATICO> <397,-1,RADIADOR> <398,578,FOTOCOPIA> <399,-1,RADIACTIVO> <400,-1,SIMETRICO> <401,464,DESENFRENADO> <402,-1,QUEDAR> <403,-1,RESALADO> <404,-1,VIDEO> <405,-1,PURPURINA> <406,-1,PIROPEAR> <407,-1,PULPITO> <408,-1,PROGRAMADOR> <409,-1,RESOLUCION> <410,-1,LLEGADA> <411,-1,GRAMA> <412,408,PRENAR> <413,451,PRENDIMIENTO> <414,-1,ZUTANO> <415,-1,HOMICIDA> <416,-1,CALLEJERO> <417,641,ARCHIDUQUESA> <418,412,TOQUE> <419,-1,HIPNOTIZAR> <420,-1,JETA> <421,-1,SUBSTANCIOSO> <422,-1,VASO> <423,532,DESPRENDIMIENTO> <424,-1,ESTRES> <425,-1,TRANSVERSAL> <426,-1,FIGON> <427,-1,NITROGLICERINA> <428,-1,VANIDAD> <429,-1,TARTAMUDEAR> <430,-1,TABASCO> <431,-1,ESGUINCE> <432,-1,ASERCION> <433,-1,SUBSIDIO> <434,-1,STATUS> <435,-1,CHANDAL> <436,-1,SICOANALISIS> <437,632,CATETO> <438,571,SERVICIO> <439,-1,BUROCRATICO> <440,660,BURO> <441,584,HOMOGENEO> <442,-1,SENSACION> <443,597,SEMILLA> <444,628,CINCUENTENARIO> <445,651,CACHONDEO> <446,-1,APERITIVO> <447,466,RECONSTITUYENTE> <448,-1,SEMENTAL> <449,-1,SEDANTE> <450,522,SECADORA> <451,492,SEBORREA> <452,-1,ANDAR> <453,553,DESGASTAR> <454,-1,PANECILLO> <455,-1,PROPUGNAR> <456,618,CAPACITAR> <457,-1,PANADERO> <458,-1,INCONSCIENCIA> <459,-1,BALEAR> <460,-1,BIBLIOGRAFIA> <461,637,CARNE> <462,-1,PACHON> <463,656,CONFERENCIANTE> <464,-1,OTORRINOLARINGOLOGO> <465,-1,CARGAMENTO> <466,-1,OSTRA> <467,442,ASCENSION> <468,-1,DESASISTIR> <469,498,MARXISMO> <470,-1,ORDENAR> <471,-1,ZOO> <472,-1,ZARZAMORA> <473,-1,ZANAHORIA> <474,610,ABULIA> <475,-1,ZAGUERO> <476,-1,PROSCRIBIR> <477,-1,YOQUI> <478,-1,ALBORADA> <479,-1,GLUTEO> <480,-1,YESO> <481,-1,OBLICUIDAD> <482,-1,O> <483,634,CONDENSADOR> <484,-1,RETABLO> <485,-1,MONGOLICO> <486,-1,PEDESTAL> <487,646,DEPONER> <488,-1,MODA> <489,-1,INMOVILIZAR> <490,612,ARCIPRESTE> <491,-1,PILLAJE> <492,555,PILAR> <493,-1,DOQUIER> <494,-1,CIBERNETICA> <495,424,DESATENDER> <496,500,PESIMISTA> <497,-1,PESEBRE> <498,576,ESTRECHAR> <499,-1,DOPING> <500,-1,ESTERNON> <501,514,MACHETE> <502,-1,ESTERNOCLEIDOMASTOIDEO> <503,-1,IDEA> <504,430,SALVAGUARDAR> <505,-1,DROMEDARIO> <506,-1,SALPICAR> <507,-1,NOTICIARIO> <508,402,SAGA> <509,-1,MANGAR> <510,485,ENCRUCIJADA> <511,-1,BROZA> <512,450,HULE> <513,-1,CALDERILLA> <514,-1,CORRESPONDER> <515,562,COQUETO> <516,591,COPULATIVO> <517,-1,FRANCOTIRADOR> <518,-1,VIGENCIA> <519,-1,MANTO> <520,635,COPAS> <521,-1,CHICHARRO> <522,-1,VIEIRA> <523,-1,INVENTARIO> <524,614,CALENTON> <525,-1,HIRIENTE> <526,-1,ARBOLEDA> <527,-1,VIDEOJUEGO> <528,-1,ANDADURA> <529,541,BOA> <530,645,DESCUIDO> <531,-1,CATACUMBAS> <532,-1,REBOSAR> <533,-1,ENEBRO> <534,407,CONSUMISMO> <535,-1,MIGRACION> <536,-1,ANILLO> <537,-1,GUINDO> <538,606,DESESPERADO> <539,535,MICROONDAS> <540,-1,MANZANO> <541,481,METALURGIA> <542,405,MENTIR> <543,549,SLIP> <544,-1,ASTRONAUTICO> <545,-1,MANIATAR> <546,-1,INDEFENSO> <547,-1,BIOMBO> <548,-1,ELIMINATORIO> <549,552,MALTRATO> <550,-1,FIEL> <551,-1,MALETIN> <552,-1,LISONJA> <553,-1,LIRIO> <554,609,CARRUAJE> <555,-1,LIMONERO> <556,659,ADEMAN> <557,-1,LICENCIA> <558,443,LENCERIA> <559,-1,IMPONDERABLE> <560,-1,LAXANTE> <561,643,CATORCEAVO> <562,-1,PEDAGOGO> <563,601,APICULTURA> <564,-1,JACTANCIA> <565,-1,PERJURIO> <566,422,IRRESPONSABILIDAD> <567,627,ALUMNO> <568,-1,DESCALCIFICACION> <569,-1,CAMINO> <570,-1,EFECTO> <571,-1,INVENTO> <572,-1,TRIPULAR> <573,-1,AFORTUNADO> <574,441,ALTERNO> <575,-1,CULOMBIO> <576,-1,INSTUSTANCIAL> <577,-1,GRATINAR> <578,-1,INSTOLACION> <579,644,HACHON> <580,642,CAL> <581,-1,PASA> <582,-1,MATRICULA> <583,454,MERENDERO> <584,-1,IMPONER> <585,477,INDESCRIPTIBLE> <586,-1,DIABETICO> <587,-1,INCOGNITO> <588,510,INDOMITO> <589,414,TRANSITORIO> <590,585,ATURRULLAR> <591,-1,TRANSFORMATIVO> <592,-1,MACHORRO> <593,-1,TIROTEAR> <594,-1,DOTAR> <595,-1,HUMILLACION> <596,-1,DESCREMAR> <597,-1,HUESUDO> <598,-1,HUESPED> <599,598,APREHENSION> <600,-1,HOTEL> <601,-1,LEGUMBRES> <602,-1,HILVAN> <603,-1,HERMOSURA> <604,488,TREN> <605,603,GUANTES> <606,-1,ALBERGUE> <607,595,ALARDE> <608,-1,AGARROTAR> <609,-1,CANCIONERO> <610,-1,ADMONICION> <611,-1,SINCRONIA> <612,-1,DIOSA> <613,-1,DESPOTA> <614,-1,EXPRESION> <615,480,EXORCISTA> <616,-1,DESLUSTRAR> <617,-1,HEROE> <618,-1,EMBAJADOR> <619,-1,PROVERBIAL> <620,-1,PROSTATA> <621,-1,PROSELITISTA> <622,539,OSADIA> <623,-1,ELECTORALISMO> <624,-1,DESCALIFICACION> <625,-1,ALMOHADA> <626,-1,ALFA> <627,-1,ALEGRIA> <628,-1,CUADROS> <629,-1,JOCOSIDAD> <630,558,FERMENTAR> <631,429,FARDO> <632,566,ANALGESICO> <633,-1,ACUOSO> <634,607,ACTUALMENTE> <635,-1,CHIQUILLERIA> <636,-1,CHOFER> <637,-1,BORDAR> <638,615,ABSTENCIONISMO> <639,-1,BONITO> <640,-1,BOMBONES> <641,416,ESCALADA> <642,-1,BANDOLINA> <643,621,NATA> <644,-1,FAENA> <645,611,SOFISTICADO> <646,613,SOBRESALIENTE> <647,-1,CLIP> <648,-1,CHARRETERA> <649,619,CEBADA> <650,433,CAZA> <651,-1,DEGUSTACION> <652,-1,COMPORTAR> <653,629,PAGA> <654,-1,ALCORNOQUE> <655,-1,RESULTAR> <656,-1,CACHEMIR> <657,-1,IMPUTACION> <658,624,SOLIDEZ> <659,-1,LEVITAR> <660,-1,DESDICHADO>
+##!
+##!
+% rm -rf *.tas
+##!
+##!

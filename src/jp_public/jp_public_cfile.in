@@ -1,0 +1,4467 @@
+##!------------------------------------------------------------------
+##! JOC DE PROVES cfile
+##!------------------------------------------------------------------
+##!
+##!
+##!------------------------------------------------------------------
+##4 cfile
+##!------------------------------------------------------------------
+##!
+##!------------------------------------------------------------------
+##4.0 Inicialitzacions
+##!------------------------------------------------------------------
+##!
+% rm -f *.cfi 
+##!
+init pC cache_FIFO 3
+##!
+##!
+##!
+##!------------------------------------------------------------------
+##4.1 mode CREATE, Errors
+##!------------------------------------------------------------------
+##!
+init cf cfile<palabra> noexisteix1.cfi CREATE pC 2 0
+#Error::file:14:El tamanyo de las paginas no puede ser nulo.
+##!
+init cf cfile<palabra> existeix.dat CREATE pC 2 4
+#Error::file:12:El fichero ya existe.
+##!
+init cf cfile<palabra> noexisteix2.cfi CREATE pC 2 4
+#Error::cfile:22:El tamanyo de la pagina es insuficiente.
+##!
+##!
+##!
+##!------------------------------------------------------------------
+##4.2 mode CREATE, num_pages = 1, ple
+##!------------------------------------------------------------------
+##!
+init cf cfile<palabra> 42.cfi CREATE pC 1 1024
+##!
+sizecf
+#31
+##!
+##!
+##!------------------------------------------------------------------
+##4.2.1 mode CREATE, num_pages = 1, ple, lectures
+##!------------------------------------------------------------------
+##!
+readcf 31
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 100
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 12
+#
+readcf 25
+#
+readcf 8
+#
+readcf 24
+#
+readcf 0
+#
+readcf 2
+#
+readcf 18
+#
+readcf 21
+#
+readcf 1
+#
+readcf 16
+#
+readcf 1
+#
+readcf 7
+#
+readcf 10
+#
+readcf 28
+#
+readcf 30
+#
+readcf 20
+#
+readcf 26
+#
+readcf 4
+#
+readcf 23
+#
+readcf 5
+#
+readcf 14
+#
+readcf 17
+#
+readcf 29
+#
+readcf 13
+#
+readcf 15
+#
+readcf 22
+#
+readcf 19
+#
+readcf 9
+#
+readcf 3
+#
+readcf 6
+#
+readcf 27
+#
+##!
+sizecf
+#31
+##!
+##!
+##!------------------------------------------------------------------
+##4.2.2 mode CREATE, num_pages = 1, ple, escriptures
+##!------------------------------------------------------------------
+##!
+writecf 5 opciones
+writecf 24 marzo
+writecf 3 lectura
+writecf 29 introduccion
+writecf 30 necesidad
+writecf 19 burbuja
+writecf 8 pajaro
+writecf 25 secreto
+writecf 26 comentabamos
+writecf 20 espacio
+writecf 7 imprescindible
+writecf 12 grande
+writecf 17 diosa
+writecf 2 cachorros
+writecf 11 guste
+writecf 22 investigar
+writecf 9 estrella
+writecf 21 solo
+writecf 23 muerte
+writecf 13 picaza
+writecf 4 benigno
+writecf 28 fundamental
+writecf 18 papelera
+writecf 0 recibir
+writecf 15 casado
+writecf 1 olmo
+writecf 16 aguafiestas
+writecf 14 barroco
+writecf 6 bisiesto
+writecf 27 elecciones
+writecf 4 ginecologo
+writecf 10 forunculo
+writecf 43 cooperacion
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+writecf 100 filosofia
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+##!
+readcf 31
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 100
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 12
+#grande
+readcf 25
+#secreto
+readcf 8
+#pajaro
+readcf 24
+#marzo
+readcf 0
+#recibir
+readcf 2
+#cachorros
+readcf 18
+#papelera
+readcf 21
+#solo
+readcf 1
+#olmo
+readcf 16
+#aguafiestas
+readcf 1
+#olmo
+readcf 7
+#imprescindible
+readcf 10
+#forunculo
+readcf 28
+#fundamental
+readcf 30
+#necesidad
+readcf 20
+#espacio
+readcf 26
+#comentabamos
+readcf 4
+#ginecologo
+readcf 23
+#muerte
+readcf 5
+#opciones
+readcf 14
+#barroco
+readcf 17
+#diosa
+readcf 29
+#introduccion
+readcf 13
+#picaza
+readcf 15
+#casado
+readcf 22
+#investigar
+readcf 19
+#burbuja
+readcf 9
+#estrella
+readcf 3
+#lectura
+readcf 6
+#bisiesto
+readcf 27
+#elecciones
+##!
+##!
+##!------------------------------------------------------------------
+##4.2.3 mode CREATE, num_pages = 1, ple, ampliant cfile
+##!------------------------------------------------------------------
+##!
+writecf 31 amplitud
+writecf 32 marcial
+##!
+sizecf
+#62
+##!
+##!
+readcf 31
+#amplitud
+readcf 32
+#marcial
+readcf 100
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 12
+#grande
+readcf 25
+#secreto
+readcf 8
+#pajaro
+readcf 24
+#marzo
+readcf 0
+#recibir
+readcf 2
+#cachorros
+readcf 18
+#papelera
+readcf 21
+#solo
+readcf 1
+#olmo
+readcf 16
+#aguafiestas
+readcf 1
+#olmo
+readcf 7
+#imprescindible
+readcf 10
+#forunculo
+readcf 28
+#fundamental
+readcf 30
+#necesidad
+readcf 20
+#espacio
+readcf 26
+#comentabamos
+readcf 4
+#ginecologo
+readcf 23
+#muerte
+readcf 5
+#opciones
+readcf 14
+#barroco
+readcf 17
+#diosa
+readcf 29
+#introduccion
+readcf 13
+#picaza
+readcf 15
+#casado
+readcf 22
+#investigar
+readcf 19
+#burbuja
+readcf 9
+#estrella
+readcf 3
+#lectura
+readcf 6
+#bisiesto
+readcf 27
+#elecciones
+##!
+##!
+##!------------------------------------------------------------------
+##4.2.4 mode CREATE, num_pages = 1, ple, destructora
+##!------------------------------------------------------------------
+##!
+cf destroy
+##!
+% cmp 42.dat 42.cfi
+##!
+##!
+##!
+##!------------------------------------------------------------------
+##4.3 mode CREATE, num_pages = 1, no ple
+##!------------------------------------------------------------------
+##!
+init cf cfile<palabra> 43.cfi CREATE pC 1 1024
+##!
+##!
+##!------------------------------------------------------------------
+##4.3.1 mode CREATE, num_pages = 1, no ple, escriptures
+##!------------------------------------------------------------------
+##!
+writecf 5 opciones
+writecf 24 marzo
+writecf 3 lectura
+writecf 29 introduccion
+writecf 19 burbuja
+writecf 8 pajaro
+writecf 26 comentabamos
+writecf 20 espacio
+writecf 7 imprescindible
+writecf 12 grande
+writecf 11 guste
+writecf 22 investigar
+writecf 9 estrella
+writecf 21 solo
+writecf 13 picaza
+writecf 18 papelera
+writecf 1 olmo
+writecf 16 aguafiestas
+writecf 14 barroco
+writecf 27 elecciones
+writecf 10 forunculo
+writecf 43 cooperacion
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+writecf 100 filosofia
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+##!
+readcf 31
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 100
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 12
+#grande
+readcf 25
+#
+readcf 8
+#pajaro
+readcf 24
+#marzo
+readcf 0
+#
+readcf 2
+#
+readcf 18
+#papelera
+readcf 21
+#solo
+readcf 1
+#olmo
+readcf 16
+#aguafiestas
+readcf 1
+#olmo
+readcf 7
+#imprescindible
+readcf 10
+#forunculo
+readcf 28
+#
+readcf 30
+#
+readcf 20
+#espacio
+readcf 26
+#comentabamos
+readcf 4
+#
+readcf 23
+#
+readcf 5
+#opciones
+readcf 14
+#barroco
+readcf 17
+#
+readcf 29
+#introduccion
+readcf 13
+#picaza
+readcf 15
+#
+readcf 22
+#investigar
+readcf 19
+#burbuja
+readcf 9
+#estrella
+readcf 3
+#lectura
+readcf 6
+#
+readcf 27
+#elecciones
+##!
+sizecf
+#31
+##!
+##!
+##!------------------------------------------------------------------
+##4.3.2 mode CREATE, num_pages = 1, no ple, ampliant cfile
+##!------------------------------------------------------------------
+##!
+writecf 31 amplitud
+writecf 32 marcial
+##!
+sizecf
+#62
+##!
+##!
+readcf 31
+#amplitud
+readcf 32
+#marcial
+readcf 100
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 12
+#grande
+readcf 25
+#
+readcf 8
+#pajaro
+readcf 24
+#marzo
+readcf 0
+#
+readcf 2
+#
+readcf 18
+#papelera
+readcf 21
+#solo
+readcf 1
+#olmo
+readcf 16
+#aguafiestas
+readcf 1
+#olmo
+readcf 7
+#imprescindible
+readcf 10
+#forunculo
+readcf 28
+#
+readcf 30
+#
+readcf 20
+#espacio
+readcf 26
+#comentabamos
+readcf 4
+#
+readcf 23
+#
+readcf 5
+#opciones
+readcf 14
+#barroco
+readcf 17
+#
+readcf 29
+#introduccion
+readcf 13
+#picaza
+readcf 15
+#
+readcf 22
+#investigar
+readcf 19
+#burbuja
+readcf 9
+#estrella
+readcf 3
+#lectura
+readcf 6
+#
+readcf 27
+#elecciones
+##!
+##!
+##!------------------------------------------------------------------
+##4.3.3 mode CREATE, num_pages = 1, no ple, destructora
+##!------------------------------------------------------------------
+##!
+cf destroy
+##!
+% cmp 43.dat 43.cfi
+##!
+##!
+##!
+##!------------------------------------------------------------------
+##4.4 mode CREATE, num_pages = 3, ple
+##!------------------------------------------------------------------
+##!
+init cf cfile<palabra> 44.cfi CREATE pC 3 1024
+##!
+sizecf
+#93
+##!
+##!
+##!------------------------------------------------------------------
+##4.4.1 mode CREATE, num_pages = 3, ple, lectures
+##!------------------------------------------------------------------
+##!
+readcf 94
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 100
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 11
+#
+readcf 66
+#
+readcf 86
+#
+readcf 27
+#
+readcf 63
+#
+readcf 68
+#
+readcf 25
+#
+readcf 55
+#
+readcf 56
+#
+readcf 60
+#
+readcf 73
+#
+readcf 69
+#
+readcf 42
+#
+readcf 91
+#
+readcf 45
+#
+readcf 50
+#
+readcf 40
+#
+readcf 13
+#
+readcf 2
+#
+readcf 62
+#
+readcf 79
+#
+readcf 57
+#
+readcf 52
+#
+readcf 83
+#
+readcf 88
+#
+readcf 9
+#
+readcf 5
+#
+readcf 12
+#
+readcf 39
+#
+readcf 26
+#
+readcf 19
+#
+readcf 22
+#
+readcf 18
+#
+readcf 71
+#
+readcf 38
+#
+readcf 14
+#
+readcf 35
+#
+readcf 75
+#
+readcf 48
+#
+readcf 8
+#
+readcf 43
+#
+readcf 49
+#
+readcf 7
+#
+readcf 15
+#
+readcf 21
+#
+readcf 64
+#
+readcf 10
+#
+readcf 70
+#
+readcf 28
+#
+readcf 54
+#
+readcf 36
+#
+readcf 92
+#
+readcf 89
+#
+readcf 47
+#
+readcf 46
+#
+readcf 37
+#
+readcf 33
+#
+readcf 78
+#
+readcf 76
+#
+readcf 51
+#
+readcf 0
+#
+readcf 6
+#
+readcf 80
+#
+readcf 4
+#
+readcf 81
+#
+readcf 82
+#
+readcf 85
+#
+readcf 53
+#
+readcf 32
+#
+readcf 23
+#
+readcf 72
+#
+readcf 41
+#
+readcf 16
+#
+readcf 17
+#
+readcf 61
+#
+readcf 67
+#
+readcf 44
+#
+readcf 34
+#
+readcf 59
+#
+readcf 74
+#
+readcf 77
+#
+readcf 87
+#
+readcf 3
+#
+readcf 20
+#
+readcf 65
+#
+readcf 90
+#
+readcf 31
+#
+readcf 1
+#
+readcf 30
+#
+readcf 84
+#
+readcf 29
+#
+readcf 58
+#
+readcf 24
+#
+##!
+sizecf
+#93
+##!
+##!
+##!------------------------------------------------------------------
+##4.4.2 mode CREATE, num_pages = 3, ple, escriptures
+##!------------------------------------------------------------------
+##!
+writecf 5 ella
+writecf 86 sabia
+writecf 52 mejor
+writecf 91 que
+writecf 36 nadie
+writecf 20 lo
+writecf 83 presionado
+writecf 77 que
+writecf 54 se
+writecf 65 sentia
+writecf 72 Brun
+writecf 50 era
+writecf 61 ella 
+writecf 90 quien
+writecf 21 trataba
+writecf 18 de
+writecf 76 aliviar
+writecf 49 la
+writecf 25 tension
+writecf 33 de
+writecf 29 su
+writecf 27 cuello
+writecf 11 y
+writecf 14 sus
+writecf 55 hombros
+writecf 59 a
+writecf 10 fuerza
+writecf 69 de
+writecf 45 masajes
+writecf 4 y
+writecf 68 era
+writecf 75 ella
+writecf 63 quien
+writecf 41 soportaba
+writecf 60 el
+writecf 37 peso
+writecf 74 de
+writecf 88 su
+writecf 34 humor
+writecf 15 nervioso
+writecf 51 tan
+writecf 39 raro
+writecf 30 en
+writecf 66 el
+writecf 92 hombre
+writecf 80 que
+writecf 56 era
+writecf 73 su
+writecf 6 companero
+writecf 17 Brun
+writecf 7 era
+writecf 8 conocido
+writecf 28 por
+writecf 62 su
+writecf 43 autodominio
+writecf 13 estoico
+writecf 26 y
+writecf 58 ella
+writecf 35 sabia
+writecf 46 que
+writecf 22 lamentaba
+writecf 19 sus
+writecf 3 estallidos
+writecf 42 aun
+writecf 48 cuando
+writecf 67 no
+writecf 85 incrementaria
+writecf 78 su
+writecf 32 falta
+writecf 53 admitiendolo
+writecf 47 pero
+writecf 23 Ebra
+writecf 1 misma
+writecf 82 se 
+writecf 71 preguntaba
+writecf 71 por
+writecf 89 que
+writecf 9 habria
+writecf 0 permitido
+writecf 81 que
+writecf 2 aquella
+writecf 24 criatura
+writecf 57 viniera
+writecf 84 con
+writecf 44 ellos
+writecf 87 especialmente
+writecf 38 cuando
+writecf 16 cualquier
+writecf 64 desviacion
+writecf 31 de
+writecf 12 la
+writecf 79 conducta
+writecf 40 normal
+writecf 70 podria
+writecf 69 exacerbar
+writecf 31 la
+writecf 11 ira
+writecf 33 de
+writecf 100 los
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+writecf 7 espiritus
+##!
+readcf 94
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 100
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 11
+#ira
+readcf 66
+#el
+readcf 86
+#sabia
+readcf 27
+#cuello
+readcf 63
+#quien
+readcf 68
+#era
+readcf 25
+#tension
+readcf 55
+#hombros
+readcf 56
+#era
+readcf 60
+#el
+readcf 73
+#su
+readcf 69
+#exacerbar
+readcf 42
+#aun
+readcf 91
+#que
+readcf 45
+#masajes
+readcf 50
+#era
+readcf 40
+#normal
+readcf 13
+#estoico
+readcf 2
+#aquella
+readcf 62
+#su
+readcf 79
+#conducta
+readcf 57
+#viniera
+readcf 52
+#mejor
+readcf 83
+#presionado
+readcf 88
+#su
+readcf 9
+#habria
+readcf 5
+#ella
+readcf 12
+#la
+readcf 39
+#raro
+readcf 26
+#y
+readcf 19
+#sus
+readcf 22
+#lamentaba
+readcf 18
+#de
+readcf 71
+#por
+readcf 38
+#cuando
+readcf 14
+#sus
+readcf 35
+#sabia
+readcf 75
+#ella
+readcf 48
+#cuando
+readcf 8
+#conocido
+readcf 43
+#autodominio
+readcf 49
+#la
+readcf 7
+#espiritus
+readcf 15
+#nervioso
+readcf 21
+#trataba
+readcf 64
+#desviacion
+readcf 10
+#fuerza
+readcf 70
+#podria
+readcf 28
+#por
+readcf 54
+#se
+readcf 36
+#nadie
+readcf 92
+#hombre
+readcf 89
+#que
+readcf 47
+#pero
+readcf 46
+#que
+readcf 37
+#peso
+readcf 33
+#de
+readcf 78
+#su
+readcf 76
+#aliviar
+readcf 51
+#tan
+readcf 0
+#permitido
+readcf 6
+#companero
+readcf 80
+#que
+readcf 4
+#y
+readcf 81
+#que
+readcf 82
+#se
+readcf 85
+#incrementaria
+readcf 53
+#admitiendolo
+readcf 32
+#falta
+readcf 23
+#Ebra
+readcf 72
+#Brun
+readcf 41
+#soportaba
+readcf 16
+#cualquier
+readcf 17
+#Brun
+readcf 61
+#ella
+readcf 67
+#no
+readcf 44
+#ellos
+readcf 34
+#humor
+readcf 59
+#a
+readcf 74
+#de
+readcf 77
+#que
+readcf 87
+#especialmente
+readcf 3
+#estallidos
+readcf 20
+#lo
+readcf 65
+#sentia
+readcf 90
+#quien
+readcf 31
+#la
+readcf 1
+#misma
+readcf 30
+#en
+readcf 84
+#con
+readcf 29
+#su
+readcf 58
+#ella
+readcf 24
+#criatura
+##!
+sizecf
+#93
+##!
+##!
+##!------------------------------------------------------------------
+##4.4.3 mode CREATE, num_pages = 3, ple, ampliant cfile
+##!------------------------------------------------------------------
+##!
+writecf 93 cielo
+writecf 94 oso
+writecf 95 azules
+##!
+readcf 93
+#cielo
+readcf 94
+#oso
+readcf 95
+#azules
+readcf 200
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 11
+#ira
+readcf 66
+#el
+readcf 86
+#sabia
+readcf 27
+#cuello
+readcf 63
+#quien
+readcf 68
+#era
+readcf 25
+#tension
+readcf 55
+#hombros
+readcf 56
+#era
+readcf 60
+#el
+readcf 73	
+#su
+readcf 69
+#exacerbar
+readcf 42
+#aun
+readcf 91
+#que
+readcf 45
+#masajes
+readcf 50
+#era
+readcf 40
+#normal
+readcf 13
+#estoico
+readcf 2
+#aquella
+readcf 62
+#su
+readcf 79
+#conducta
+readcf 57
+#viniera
+readcf 52
+#mejor
+readcf 83
+#presionado
+readcf 88
+#su
+readcf 9
+#habria
+readcf 5
+#ella
+readcf 12
+#la
+readcf 39
+#raro
+readcf 26
+#y
+readcf 19
+#sus
+readcf 22
+#lamentaba
+readcf 18
+#de
+readcf 71
+#por
+readcf 38
+#cuando
+readcf 14
+#sus
+readcf 35
+#sabia
+readcf 75
+#ella
+readcf 48
+#cuando
+readcf 8
+#conocido
+readcf 43
+#autodominio
+readcf 49
+#la
+readcf 7
+#espiritus
+readcf 15
+#nervioso
+readcf 21
+#trataba
+readcf 64
+#desviacion
+readcf 10
+#fuerza
+readcf 70
+#podria
+readcf 28
+#por
+readcf 54
+#se
+readcf 36
+#nadie
+readcf 92
+#hombre
+readcf 89
+#que
+readcf 47
+#pero
+readcf 46
+#que
+readcf 37
+#peso
+readcf 33
+#de
+readcf 78
+#su
+readcf 76
+#aliviar
+readcf 51
+#tan
+readcf 0
+#permitido
+readcf 6
+#companero
+readcf 80
+#que
+readcf 4
+#y
+readcf 81
+#que
+readcf 82
+#se
+readcf 85
+#incrementaria
+readcf 53
+#admitiendolo
+readcf 32
+#falta
+readcf 23
+#Ebra
+readcf 72
+#Brun
+readcf 41
+#soportaba
+readcf 16
+#cualquier
+readcf 17
+#Brun
+readcf 61
+#ella
+readcf 67
+#no
+readcf 44
+#ellos
+readcf 34
+#humor
+readcf 59
+#a
+readcf 74
+#de
+readcf 77
+#que
+readcf 87
+#especialmente
+readcf 3
+#estallidos
+readcf 20
+#lo
+readcf 65
+#sentia
+readcf 90
+#quien
+readcf 31
+#la
+readcf 1
+#misma
+readcf 30
+#en
+readcf 84
+#con
+readcf 29
+#su
+readcf 58
+#ella
+readcf 24
+#criatura
+##!
+sizecf
+#124
+##!
+##!
+##!------------------------------------------------------------------
+##4.4.4 mode CREATE, num_pages = 3, ple, destructora
+##!------------------------------------------------------------------
+##!
+cf destroy
+##!
+% cmp 44.dat 44.cfi
+##!
+##!
+##!
+##!------------------------------------------------------------------
+##4.5 mode CREATE, num_pages = 3, no ple
+##!------------------------------------------------------------------
+##!
+init cf cfile<palabra> 45.cfi CREATE pC 3 1024
+##!
+sizecf
+#93
+##!
+##!
+##!------------------------------------------------------------------
+##4.5.1 mode CREATE, num_pages = 3, no ple, escriptures
+##!------------------------------------------------------------------
+##!
+writecf 17 Brun
+writecf 7 era
+writecf 8 conocido
+writecf 28 por
+writecf 62 su
+writecf 43 autodominio
+writecf 13 estoico
+writecf 26 y
+writecf 58 ella
+writecf 35 sabia
+writecf 46 que
+writecf 22 lamentaba
+writecf 19 sus
+writecf 3 estallidos
+writecf 42 aun
+writecf 48 cuando
+writecf 67 no
+writecf 85 incrementaria
+writecf 78 su
+writecf 32 falta
+writecf 53 admitiendolo
+writecf 47 pero
+writecf 23 Ebra
+writecf 1 misma
+writecf 82 se 
+writecf 71 preguntaba
+writecf 71 por
+writecf 89 que
+writecf 9 habria
+writecf 0 permitido
+writecf 81 que
+writecf 2 aquella
+writecf 24 criatura
+writecf 57 viniera
+writecf 84 con
+writecf 44 ellos
+writecf 87 especialmente
+writecf 38 cuando
+writecf 16 cualquier
+writecf 64 desviacion
+writecf 31 de
+writecf 12 la
+writecf 79 conducta
+writecf 40 normal
+writecf 70 podria
+writecf 69 exacerbar
+writecf 31 la
+writecf 11 ira
+writecf 33 de
+writecf 200 los
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+writecf 7 espiritus
+##!
+readcf 94
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 200
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 11
+#ira
+readcf 66
+#
+readcf 86
+#
+readcf 27
+#
+readcf 63
+#
+readcf 68
+#
+readcf 25
+#
+readcf 55
+#
+readcf 56
+#
+readcf 60
+#
+readcf 73
+#
+readcf 69
+#exacerbar
+readcf 42
+#aun
+readcf 91
+#
+readcf 45
+#
+readcf 50
+#
+readcf 40
+#normal
+readcf 13
+#estoico
+readcf 2
+#aquella
+readcf 62
+#su
+readcf 79
+#conducta
+readcf 57
+#viniera
+readcf 52
+#
+readcf 83
+#
+readcf 88
+#
+readcf 9
+#habria
+readcf 5
+#
+readcf 12
+#la
+readcf 39
+#
+readcf 26
+#y
+readcf 19
+#sus
+readcf 22
+#lamentaba
+readcf 18
+#
+readcf 71
+#por
+readcf 38
+#cuando
+readcf 14
+#
+readcf 35
+#sabia
+readcf 75
+#
+readcf 48
+#cuando
+readcf 8
+#conocido
+readcf 43
+#autodominio
+readcf 49
+#
+readcf 7
+#espiritus
+readcf 15
+#
+readcf 21
+#
+readcf 64
+#desviacion
+readcf 10
+#
+readcf 70
+#podria
+readcf 28
+#por
+readcf 54
+#
+readcf 36
+#
+readcf 92
+#
+readcf 89
+#que
+readcf 47
+#pero
+readcf 46
+#que
+readcf 37
+#
+readcf 33
+#de
+readcf 78
+#su
+readcf 76
+#
+readcf 51
+#
+readcf 0
+#permitido
+readcf 6
+#
+readcf 80
+#
+readcf 4
+#
+readcf 81
+#que
+readcf 82
+#se
+readcf 85
+#incrementaria
+readcf 53
+#admitiendolo
+readcf 32
+#falta
+readcf 23
+#Ebra
+readcf 72
+#
+readcf 41
+#
+readcf 16
+#cualquier
+readcf 17
+#Brun
+readcf 61
+#
+readcf 67
+#no
+readcf 44
+#ellos
+readcf 34
+#
+readcf 59
+#
+readcf 74
+#
+readcf 77
+#
+readcf 87
+#especialmente
+readcf 3
+#estallidos
+readcf 20
+#
+readcf 65
+#
+readcf 90
+#
+readcf 31
+#la
+readcf 1
+#misma
+readcf 30
+#
+readcf 84
+#con
+readcf 29
+#
+readcf 58
+#ella
+readcf 24
+#criatura
+##!
+sizecf
+#93
+##!
+##!
+##!------------------------------------------------------------------
+##4.5.2 mode CREATE, num_pages = 3, ple, ampliant cfile
+##!------------------------------------------------------------------
+##!
+writecf 93 cielo
+writecf 94 oso
+writecf 95 azules
+##!
+readcf 93
+#cielo
+readcf 94
+#oso
+readcf 95
+#azules
+readcf 200
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 11
+#ira
+readcf 66
+#
+readcf 86
+#
+readcf 27
+#
+readcf 63
+#
+readcf 68
+#
+readcf 25
+#
+readcf 55
+#
+readcf 56
+#
+readcf 60
+#
+readcf 73
+#
+readcf 69
+#exacerbar
+readcf 42
+#aun
+readcf 91
+#
+readcf 45
+#
+readcf 50
+#
+readcf 40
+#normal
+readcf 13
+#estoico
+readcf 2
+#aquella
+readcf 62
+#su
+readcf 79
+#conducta
+readcf 57
+#viniera
+readcf 52
+#
+readcf 83
+#
+readcf 88
+#
+readcf 9
+#habria
+readcf 5
+#
+readcf 12
+#la
+readcf 39
+#
+readcf 26
+#y
+readcf 19
+#sus
+readcf 22
+#lamentaba
+readcf 18
+#
+readcf 71
+#por
+readcf 38
+#cuando
+readcf 14
+#
+readcf 35
+#sabia
+readcf 75
+#
+readcf 48
+#cuando
+readcf 8
+#conocido
+readcf 43
+#autodominio
+readcf 49
+#
+readcf 7
+#espiritus
+readcf 15
+#
+readcf 21
+#
+readcf 64
+#desviacion
+readcf 10
+#
+readcf 70
+#podria
+readcf 28
+#por
+readcf 54
+#
+readcf 36
+#
+readcf 92
+#
+readcf 89
+#que
+readcf 47
+#pero
+readcf 46
+#que
+readcf 37
+#
+readcf 33
+#de
+readcf 78
+#su
+readcf 76
+#
+readcf 51
+#
+readcf 0
+#permitido
+readcf 6
+#
+readcf 80
+#
+readcf 4
+#
+readcf 81
+#que
+readcf 82
+#se
+readcf 85
+#incrementaria
+readcf 53
+#admitiendolo
+readcf 32
+#falta
+readcf 23
+#Ebra
+readcf 72
+#
+readcf 41
+#
+readcf 16
+#cualquier
+readcf 17
+#Brun
+readcf 61
+#
+readcf 67
+#no
+readcf 44
+#ellos
+readcf 34
+#
+readcf 59
+#
+readcf 74
+#
+readcf 77
+#
+readcf 87
+#especialmente
+readcf 3
+#estallidos
+readcf 20
+#
+readcf 65
+#
+readcf 90
+#
+readcf 31
+#la
+readcf 1
+#misma
+readcf 30
+#
+readcf 84
+#con
+readcf 29
+#
+readcf 58
+#ella
+readcf 24
+#criatura
+##!
+sizecf
+#124
+##!
+##!
+##!------------------------------------------------------------------
+##4.5.3 mode CREATE, num_pages = 3, ple, destructora
+##!------------------------------------------------------------------
+##!
+cf destroy
+##!
+% cmp 45.dat 45.cfi
+##!
+##!
+##!
+##!------------------------------------------------------------------
+##4.6 mode CREATE, num_pages = 7
+##!------------------------------------------------------------------
+##!
+init cf cfile<palabra> 46.cfi CREATE pC 7 1024
+##!
+sizecf
+#217
+##!
+##!
+##!------------------------------------------------------------------
+##4.6.1 mode CREATE, num_pages = 7, ple, lectures
+##!------------------------------------------------------------------
+##!
+readcf 217
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 1000
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 35
+#
+readcf 147
+#
+readcf 37
+#
+readcf 66
+#
+readcf 143
+#
+readcf 32
+#
+readcf 187
+#
+readcf 133
+#
+readcf 49
+#
+readcf 57
+#
+readcf 215
+#
+readcf 92
+#
+readcf 99
+#
+readcf 173
+#
+readcf 142
+#
+readcf 113
+#
+readcf 155
+#
+readcf 141
+#
+readcf 196
+#
+readcf 78
+#
+readcf 96
+#
+readcf 152
+#
+readcf 9
+#
+readcf 197
+#
+readcf 21
+#
+readcf 124
+#
+readcf 22
+#
+readcf 161
+#
+readcf 16
+#
+readcf 39
+#
+readcf 172
+#
+readcf 45
+#
+readcf 65
+#
+readcf 90
+#
+readcf 164
+#
+readcf 112
+#
+readcf 52
+#
+readcf 56
+#
+readcf 117
+#
+readcf 156
+#
+readcf 183
+#
+readcf 211
+#
+readcf 126
+#
+readcf 150
+#
+readcf 111
+#
+readcf 101
+#
+readcf 41
+#
+readcf 15
+#
+readcf 189
+#
+readcf 83
+#
+readcf 114
+#
+readcf 6
+#
+readcf 27
+#
+readcf 165
+#
+readcf 89
+#
+readcf 191
+#
+readcf 132
+#
+readcf 154
+#
+readcf 80
+#
+readcf 36
+#
+readcf 162
+#
+readcf 116
+#
+readcf 200
+#
+readcf 192
+#
+readcf 208
+#
+readcf 213
+#
+readcf 137
+#
+readcf 71
+#
+readcf 123
+#
+readcf 109
+#
+readcf 82
+#
+readcf 185
+#
+readcf 198
+#
+readcf 134
+#
+readcf 171
+#
+readcf 81
+#
+readcf 74
+#
+readcf 168
+#
+readcf 122
+#
+readcf 85
+#
+readcf 88
+#
+readcf 76
+#
+readcf 47
+#
+readcf 0
+#
+readcf 46
+#
+readcf 110
+#
+readcf 105
+#
+readcf 70
+#
+readcf 63
+#
+readcf 151
+#
+readcf 182
+#
+readcf 205
+#
+readcf 130
+#
+readcf 120
+#
+readcf 177
+#
+readcf 115
+#
+readcf 7
+#
+readcf 102
+#
+readcf 12
+#
+readcf 190
+#
+readcf 3
+#
+readcf 91
+#
+readcf 44
+#
+readcf 195
+#
+readcf 30
+#
+readcf 40
+#
+readcf 28
+#
+readcf 48
+#
+readcf 58
+#
+readcf 29
+#
+readcf 202
+#
+readcf 169
+#
+readcf 79
+#
+readcf 13
+#
+readcf 75
+#
+readcf 94
+#
+readcf 158
+#
+readcf 125
+#
+readcf 17
+#
+readcf 135
+#
+readcf 72
+#
+readcf 84
+#
+readcf 43
+#
+readcf 87
+#
+readcf 31
+#
+readcf 55
+#
+readcf 8
+#
+readcf 180
+#
+readcf 140
+#
+readcf 153
+#
+readcf 108
+#
+readcf 97
+#
+readcf 209
+#
+readcf 38
+#
+readcf 186
+#
+readcf 216
+#
+readcf 129
+#
+readcf 194
+#
+readcf 100
+#
+readcf 64
+#
+readcf 179
+#
+readcf 148
+#
+readcf 14
+#
+readcf 193
+#
+readcf 144
+#
+readcf 18
+#
+readcf 62
+#
+readcf 73
+#
+readcf 67
+#
+readcf 60
+#
+readcf 51
+#
+readcf 11
+#
+readcf 34
+#
+readcf 166
+#
+readcf 127
+#
+readcf 131
+#
+readcf 106
+#
+readcf 139
+#
+readcf 121
+#
+readcf 206
+#
+readcf 107
+#
+readcf 68
+#
+readcf 77
+#
+readcf 175
+#
+readcf 178
+#
+readcf 157
+#
+readcf 181
+#
+readcf 53
+#
+readcf 176
+#
+readcf 146
+#
+readcf 170
+#
+readcf 204
+#
+readcf 103
+#
+readcf 20
+#
+readcf 10
+#
+readcf 160
+#
+readcf 174
+#
+readcf 95
+#
+readcf 188
+#
+readcf 214
+#
+readcf 69
+#
+readcf 119
+#
+readcf 1
+#
+readcf 201
+#
+readcf 149
+#
+readcf 138
+#
+readcf 118
+#
+readcf 93
+#
+readcf 42
+#
+readcf 136
+#
+readcf 24
+#
+readcf 50
+#
+readcf 59
+#
+readcf 19
+#
+readcf 25
+#
+readcf 33
+#
+readcf 86
+#
+readcf 98
+#
+readcf 104
+#
+readcf 210
+#
+readcf 199
+#
+readcf 23
+#
+readcf 54
+#
+readcf 128
+#
+readcf 212
+#
+readcf 203
+#
+readcf 167
+#
+readcf 61
+#
+readcf 207
+#
+readcf 159
+#
+readcf 184
+#
+readcf 5
+#
+readcf 4
+#
+readcf 163
+#
+readcf 2
+#
+readcf 26
+#
+readcf 145
+#
+##!
+sizecf
+#217
+##!
+##!
+##!------------------------------------------------------------------
+##4.6.2 mode CREATE, num_pages = 7, ple, escriptures
+##!------------------------------------------------------------------
+##!
+writecf 218 Prince
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+writecf 1000 Caspian 
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+writecf 113 The
+writecf 196 Island
+writecf 210 Once
+writecf 99 there
+writecf 136 were
+writecf 23 four
+writecf 194 children
+writecf 126 whose
+writecf 190 names
+writecf 119 were
+writecf 156 Peter
+writecf 203 Susan
+writecf 189 Edmund
+writecf 35 Lucy
+writecf 45 and
+writecf 150 it
+writecf 65 has
+writecf 149 been
+writecf 197 told
+writecf 46 in
+writecf 85 another
+writecf 2 book
+writecf 75 called
+writecf 105 The
+writecf 102 Lion
+writecf 202 the
+writecf 158 Witch
+writecf 77 and
+writecf 141 the
+writecf 113 Wardrobe
+writecf 98 how
+writecf 205 they
+writecf 165 had
+writecf 131 a
+writecf 106 remarkable
+writecf 112 adventure
+writecf 103 They
+writecf 88 had
+writecf 83 opened
+writecf 33 the
+writecf 148 door
+writecf 62 of
+writecf 59 a
+writecf 159 magic
+writecf 132 wardrobe
+writecf 114 and
+writecf 84 found
+writecf 140 themselves
+writecf 179 in
+writecf 69 a
+writecf 70 quite
+writecf 14 different
+writecf 41 world
+writecf 166 from
+writecf 38 ours
+writecf 128 and
+writecf 172 in
+writecf 168 that
+writecf 20 different
+writecf 39 world
+writecf 13 they
+writecf 76 had
+writecf 24 become
+writecf 57 Kings
+writecf 68 and
+writecf 28 Queens
+writecf 29 in
+writecf 209 a
+writecf 121 country
+writecf 154 called
+writecf 201 Narnia
+writecf 53 While
+writecf 80 they
+writecf 82 were
+writecf 162 in
+writecf 129 Narnia
+writecf 142 they
+writecf 71 seemed
+writecf 200 to
+writecf 44 reign
+writecf 117 for
+writecf 144 years
+writecf 26 and
+writecf 213 years
+writecf 178 but
+writecf 110 when
+writecf 116 they
+writecf 108 came
+writecf 0 back
+writecf 124 through
+writecf 206 the
+writecf 198 door
+writecf 214 and
+writecf 48 found
+writecf 40 themselves
+writecf 89 in
+writecf 127 England
+writecf 56 again
+writecf 164 it
+writecf 182 all
+writecf 120 seemed
+writecf 177 to
+writecf 161 have
+writecf 7 taken
+writecf 186 no
+writecf 79 time
+writecf 34 at
+writecf 192 all
+writecf 208 At
+writecf 204 any
+writecf 27 rate
+writecf 104 no
+writecf 195 one
+writecf 55 noticed
+writecf 191 that
+writecf 96 they
+writecf 100 had
+writecf 137 ever
+writecf 135 been
+writecf 180 away
+writecf 72 and
+writecf 95 they
+writecf 49 never
+writecf 155 told
+writecf 145 anyone
+writecf 6 except
+writecf 30 one
+writecf 12 very
+writecf 133 wise
+writecf 66 grown-up
+writecf 109 That 
+writecf 97 had
+writecf 52 all
+writecf 18 happened
+writecf 11 a
+writecf 207 year
+writecf 91 ago
+writecf 61 and
+writecf 1 now
+writecf 173 all
+writecf 37 four
+writecf 118 of
+writecf 54 them
+writecf 15 were
+writecf 81 sitting
+writecf 4 on
+writecf 175 a
+writecf 157 seat
+writecf 146 at
+writecf 51 the
+writecf 36 railway
+writecf 19 station
+writecf 43 with
+writecf 111 trunks
+writecf 64 and
+writecf 63 playboxes
+writecf 60 piled
+writecf 187 up
+writecf 171 round
+writecf 167 them
+writecf 17 They
+writecf 92 were
+writecf 152 in
+writecf 184 fact
+writecf 216 on
+writecf 199 their
+writecf 163 way
+writecf 138 back
+writecf 8 to
+writecf 22 school
+writecf 32 They
+writecf 160 had
+writecf 107 travelled
+writecf 185 together
+writecf 10 as
+writecf 94 far
+writecf 78 as
+writecf 174 this
+writecf 176 station
+writecf 25 which
+writecf 196 was
+writecf 31 a
+writecf 134 junction
+writecf 153 and
+writecf 16 here
+writecf 143 in
+writecf 170 a
+writecf 193 few
+writecf 67 minutes
+writecf 188 one
+writecf 58 train
+writecf 50 would
+writecf 212 arrive
+writecf 74 and
+writecf 73 take
+writecf 21 the
+writecf 90 girls
+writecf 42 away
+writecf 151 to
+writecf 47 one
+writecf 211 school
+writecf 125 and
+writecf 215 in
+writecf 147 about
+writecf 139 half
+writecf 86 an
+writecf 123 hour
+writecf 169 another
+writecf 93 train
+writecf 130 would
+writecf 122 arrive
+writecf 181 and
+writecf 115 the
+writecf 5 boys
+writecf 9 would
+writecf 183 go
+writecf 101 off
+writecf 3 to
+writecf 87 another
+writecf 54 school
+##!
+readcf 217
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 1000
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 35
+#Lucy
+readcf 147
+#about
+readcf 37
+#four
+readcf 66
+#grown-up
+readcf 143
+#in
+readcf 32
+#They
+readcf 187
+#up
+readcf 133
+#wise
+readcf 49
+#never
+readcf 57
+#Kings
+readcf 215
+#in
+readcf 92
+#were
+readcf 99
+#there
+readcf 173
+#all
+readcf 142
+#they
+readcf 113
+#Wardrobe
+readcf 155
+#told
+readcf 141
+#the
+readcf 196
+#was
+readcf 78
+#as
+readcf 96
+#they
+readcf 152
+#in
+readcf 9
+#would
+readcf 197
+#told
+readcf 21
+#the
+readcf 124
+#through
+readcf 22
+#school
+readcf 161
+#have
+readcf 16
+#here
+readcf 39
+#world
+readcf 172
+#in
+readcf 45
+#and
+readcf 65
+#has
+readcf 90
+#girls
+readcf 164
+#it
+readcf 112
+#adventure
+readcf 52
+#all
+readcf 56
+#again
+readcf 117
+#for
+readcf 156
+#Peter
+readcf 183
+#go
+readcf 211
+#school
+readcf 126
+#whose
+readcf 150
+#it
+readcf 111
+#trunks
+readcf 101
+#off
+readcf 41
+#world
+readcf 15
+#were
+readcf 189
+#Edmund
+readcf 83
+#opened
+readcf 114
+#and
+readcf 6
+#except
+readcf 27
+#rate
+readcf 165
+#had
+readcf 89
+#in
+readcf 191
+#that
+readcf 132
+#wardrobe
+readcf 154
+#called
+readcf 80
+#they
+readcf 36
+#railway
+readcf 162
+#in
+readcf 116
+#they
+readcf 200
+#to
+readcf 192
+#all
+readcf 208
+#At
+readcf 213
+#years
+readcf 137
+#ever
+readcf 71
+#seemed
+readcf 123
+#hour
+readcf 109
+#That
+readcf 82
+#were
+readcf 185
+#together
+readcf 198
+#door
+readcf 134
+#junction
+readcf 171
+#round
+readcf 81
+#sitting
+readcf 74
+#and
+readcf 168
+#that
+readcf 122
+#arrive
+readcf 85
+#another
+readcf 88
+#had
+readcf 76
+#had
+readcf 47
+#one
+readcf 0
+#back
+readcf 46
+#in
+readcf 110
+#when
+readcf 105
+#The
+readcf 70
+#quite
+readcf 63
+#playboxes
+readcf 151
+#to
+readcf 182
+#all
+readcf 205
+#they
+readcf 130
+#would
+readcf 120
+#seemed
+readcf 177
+#to
+readcf 115
+#the
+readcf 7
+#taken
+readcf 102
+#Lion
+readcf 12
+#very
+readcf 190
+#names
+readcf 3
+#to
+readcf 91
+#ago
+readcf 44
+#reign
+readcf 195
+#one
+readcf 30
+#one
+readcf 40
+#themselves
+readcf 28
+#Queens
+readcf 48
+#found
+readcf 58
+#train
+readcf 29
+#in
+readcf 202
+#the
+readcf 169
+#another
+readcf 79
+#time
+readcf 13
+#they
+readcf 75
+#called
+readcf 94
+#far
+readcf 158
+#Witch
+readcf 125
+#and
+readcf 17
+#They
+readcf 135
+#been
+readcf 72
+#and
+readcf 84
+#found
+readcf 43
+#with
+readcf 87
+#another
+readcf 31
+#a
+readcf 55
+#noticed
+readcf 8
+#to
+readcf 180
+#away
+readcf 140
+#themselves
+readcf 153
+#and
+readcf 108
+#came
+readcf 97
+#had
+readcf 209
+#a
+readcf 38
+#ours
+readcf 186
+#no
+readcf 216
+#on
+readcf 129
+#Narnia
+readcf 194
+#children
+readcf 100
+#had
+readcf 64
+#and
+readcf 179
+#in
+readcf 148
+#door
+readcf 14
+#different
+readcf 193
+#few
+readcf 144
+#years
+readcf 18
+#happened
+readcf 62
+#of
+readcf 73
+#take
+readcf 67
+#minutes
+readcf 60
+#piled
+readcf 51
+#the
+readcf 11
+#a
+readcf 34
+#at
+readcf 166
+#from
+readcf 127
+#England
+readcf 131
+#a
+readcf 106
+#remarkable
+readcf 139
+#half
+readcf 121
+#country
+readcf 206
+#the
+readcf 107
+#travelled
+readcf 68
+#and
+readcf 77
+#and
+readcf 175
+#a
+readcf 178
+#but
+readcf 157
+#seat
+readcf 181
+#and
+readcf 53
+#While
+readcf 176
+#station
+readcf 146
+#at
+readcf 170
+#a
+readcf 204
+#any
+readcf 103
+#They
+readcf 20
+#different
+readcf 10
+#as
+readcf 160
+#had
+readcf 174
+#this
+readcf 95
+#they
+readcf 188
+#one
+readcf 214
+#and
+readcf 69
+#a
+readcf 119
+#were
+readcf 1
+#now
+readcf 201
+#Narnia
+readcf 149
+#been
+readcf 138
+#back
+readcf 118
+#of
+readcf 93
+#train
+readcf 42
+#away
+readcf 136
+#were
+readcf 24
+#become
+readcf 50
+#would
+readcf 59
+#a
+readcf 19
+#station
+readcf 25
+#which
+readcf 33
+#the
+readcf 86
+#an
+readcf 98
+#how
+readcf 104
+#no
+readcf 210
+#Once
+readcf 199
+#their
+readcf 23
+#four
+readcf 54
+#school
+readcf 128
+#and
+readcf 212
+#arrive
+readcf 203
+#Susan
+readcf 167
+#them
+readcf 61
+#and
+readcf 207
+#year
+readcf 159
+#magic
+readcf 184
+#fact
+readcf 5
+#boys
+readcf 4
+#on
+readcf 163
+#way
+readcf 2
+#book
+readcf 26
+#and
+readcf 145
+#anyone
+##!
+sizecf
+#217
+##!
+##!
+##!------------------------------------------------------------------
+##4.6.3 mode CREATE, num_pages = 7, ple, ampliant cfile
+##!------------------------------------------------------------------
+##!
+writecf 217 Prince
+writecf 218 Caspian 
+##!
+sizecf
+#248
+##!
+readcf 217
+#Prince
+readcf 218
+#Caspian
+readcf 1000
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 35
+#Lucy
+readcf 147
+#about
+readcf 37
+#four
+readcf 66
+#grown-up
+readcf 143
+#in
+readcf 32
+#They
+readcf 187
+#up
+readcf 133
+#wise
+readcf 49
+#never
+readcf 57
+#Kings
+readcf 215
+#in
+readcf 92
+#were
+readcf 99
+#there
+readcf 173
+#all
+readcf 142
+#they
+readcf 113
+#Wardrobe
+readcf 155
+#told
+readcf 141
+#the
+readcf 196
+#was
+readcf 78
+#as
+readcf 96
+#they
+readcf 152
+#in
+readcf 9
+#would
+readcf 197
+#told
+readcf 21
+#the
+readcf 124
+#through
+readcf 22
+#school
+readcf 161
+#have
+readcf 16
+#here
+readcf 39
+#world
+readcf 172
+#in
+readcf 45
+#and
+readcf 65
+#has
+readcf 90
+#girls
+readcf 164
+#it
+readcf 112
+#adventure
+readcf 52
+#all
+readcf 56
+#again
+readcf 117
+#for
+readcf 156
+#Peter
+readcf 183
+#go
+readcf 211
+#school
+readcf 126
+#whose
+readcf 150
+#it
+readcf 111
+#trunks
+readcf 101
+#off
+readcf 41
+#world
+readcf 15
+#were
+readcf 189
+#Edmund
+readcf 83
+#opened
+readcf 114
+#and
+readcf 6
+#except
+readcf 27
+#rate
+readcf 165
+#had
+readcf 89
+#in
+readcf 191
+#that
+readcf 132
+#wardrobe
+readcf 154
+#called
+readcf 80
+#they
+readcf 36
+#railway
+readcf 162
+#in
+readcf 116
+#they
+readcf 200
+#to
+readcf 192
+#all
+readcf 208
+#At
+readcf 213
+#years
+readcf 137
+#ever
+readcf 71
+#seemed
+readcf 123
+#hour
+readcf 109
+#That
+readcf 82
+#were
+readcf 185
+#together
+readcf 198
+#door
+readcf 134
+#junction
+readcf 171
+#round
+readcf 81
+#sitting
+readcf 74
+#and
+readcf 168
+#that
+readcf 122
+#arrive
+readcf 85
+#another
+readcf 88
+#had
+readcf 76
+#had
+readcf 47
+#one
+readcf 0
+#back
+readcf 46
+#in
+readcf 110
+#when
+readcf 105
+#The
+readcf 70
+#quite
+readcf 63
+#playboxes
+readcf 151
+#to
+readcf 182
+#all
+readcf 205
+#they
+readcf 130
+#would
+readcf 120
+#seemed
+readcf 177
+#to
+readcf 115
+#the
+readcf 7
+#taken
+readcf 102
+#Lion
+readcf 12
+#very
+readcf 190
+#names
+readcf 3
+#to
+readcf 91
+#ago
+readcf 44
+#reign
+readcf 195
+#one
+readcf 30
+#one
+readcf 40
+#themselves
+readcf 28
+#Queens
+readcf 48
+#found
+readcf 58
+#train
+readcf 29
+#in
+readcf 202
+#the
+readcf 169
+#another
+readcf 79
+#time
+readcf 13
+#they
+readcf 75
+#called
+readcf 94
+#far
+readcf 158
+#Witch
+readcf 125
+#and
+readcf 17
+#They
+readcf 135
+#been
+readcf 72
+#and
+readcf 84
+#found
+readcf 43
+#with
+readcf 87
+#another
+readcf 31
+#a
+readcf 55
+#noticed
+readcf 8
+#to
+readcf 180
+#away
+readcf 140
+#themselves
+readcf 153
+#and
+readcf 108
+#came
+readcf 97
+#had
+readcf 209
+#a
+readcf 38
+#ours
+readcf 186
+#no
+readcf 216
+#on
+readcf 129
+#Narnia
+readcf 194
+#children
+readcf 100
+#had
+readcf 64
+#and
+readcf 179
+#in
+readcf 148
+#door
+readcf 14
+#different
+readcf 193
+#few
+readcf 144
+#years
+readcf 18
+#happened
+readcf 62
+#of
+readcf 73
+#take
+readcf 67
+#minutes
+readcf 60
+#piled
+readcf 51
+#the
+readcf 11
+#a
+readcf 34
+#at
+readcf 166
+#from
+readcf 127
+#England
+readcf 131
+#a
+readcf 106
+#remarkable
+readcf 139
+#half
+readcf 121
+#country
+readcf 206
+#the
+readcf 107
+#travelled
+readcf 68
+#and
+readcf 77
+#and
+readcf 175
+#a
+readcf 178
+#but
+readcf 157
+#seat
+readcf 181
+#and
+readcf 53
+#While
+readcf 176
+#station
+readcf 146
+#at
+readcf 170
+#a
+readcf 204
+#any
+readcf 103
+#They
+readcf 20
+#different
+readcf 10
+#as
+readcf 160
+#had
+readcf 174
+#this
+readcf 95
+#they
+readcf 188
+#one
+readcf 214
+#and
+readcf 69
+#a
+readcf 119
+#were
+readcf 1
+#now
+readcf 201
+#Narnia
+readcf 149
+#been
+readcf 138
+#back
+readcf 118
+#of
+readcf 93
+#train
+readcf 42
+#away
+readcf 136
+#were
+readcf 24
+#become
+readcf 50
+#would
+readcf 59
+#a
+readcf 19
+#station
+readcf 25
+#which
+readcf 33
+#the
+readcf 86
+#an
+readcf 98
+#how
+readcf 104
+#no
+readcf 210
+#Once
+readcf 199
+#their
+readcf 23
+#four
+readcf 54
+#school
+readcf 128
+#and
+readcf 212
+#arrive
+readcf 203
+#Susan
+readcf 167
+#them
+readcf 61
+#and
+readcf 207
+#year
+readcf 159
+#magic
+readcf 184
+#fact
+readcf 5
+#boys
+readcf 4
+#on
+readcf 163
+#way
+readcf 2
+#book
+readcf 26
+#and
+readcf 145
+#anyone
+##!
+##!
+##!------------------------------------------------------------------
+##4.6.4 mode CREATE, num_pages = 1, ple, destructora
+##!------------------------------------------------------------------
+##!
+cf destroy
+##!
+% cmp 46.dat 46.cfi
+##!
+##!
+##!
+##!------------------------------------------------------------------
+##4.7 mode CREATE, num_pages = 7, no ple
+##!------------------------------------------------------------------
+##!
+init cf cfile<palabra> 47.cfi CREATE pC 7 1024
+##!
+sizecf
+#217
+##!
+##!
+##!------------------------------------------------------------------
+##4.7.1 mode CREATE, num_pages = 7, no ple, escriptures
+##!------------------------------------------------------------------
+##!
+writecf 218 Prince
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+writecf 1000 Caspian 
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+writecf 113 The
+writecf 196 Island
+writecf 210 Once
+writecf 99 there
+writecf 136 were
+writecf 23 four
+writecf 194 children
+writecf 126 whose
+writecf 190 names
+writecf 119 were
+writecf 156 Peter
+writecf 203 Susan
+writecf 189 Edmund
+writecf 35 Lucy
+writecf 45 and
+writecf 150 it
+writecf 65 has
+writecf 149 been
+writecf 197 told
+writecf 46 in
+writecf 85 another
+writecf 2 book
+writecf 75 called
+writecf 105 The
+writecf 102 Lion
+writecf 202 the
+writecf 158 Witch
+writecf 77 and
+writecf 141 the
+writecf 113 Wardrobe
+writecf 98 how
+writecf 205 they
+writecf 165 had
+writecf 131 a
+writecf 106 remarkable
+writecf 112 adventure
+writecf 103 They
+writecf 88 had
+writecf 83 opened
+writecf 33 the
+writecf 148 door
+writecf 62 of
+writecf 59 a
+writecf 159 magic
+writecf 132 wardrobe
+writecf 114 and
+writecf 84 found
+writecf 140 themselves
+writecf 179 in
+writecf 69 a
+writecf 70 quite
+writecf 14 different
+writecf 41 world
+writecf 166 from
+writecf 38 ours
+writecf 128 and
+writecf 172 in
+writecf 168 that
+writecf 20 different
+writecf 39 world
+writecf 13 they
+writecf 76 had
+writecf 24 become
+writecf 57 Kings
+writecf 68 and
+writecf 28 Queens
+writecf 29 in
+writecf 209 a
+writecf 121 country
+writecf 154 called
+writecf 201 Narnia
+writecf 53 While
+writecf 80 they
+writecf 82 were
+writecf 162 in
+writecf 129 Narnia
+writecf 142 they
+writecf 71 seemed
+writecf 200 to
+writecf 44 reign
+writecf 117 for
+writecf 144 years
+writecf 26 and
+writecf 213 years
+writecf 178 but
+writecf 110 when
+writecf 116 they
+writecf 108 came
+writecf 0 back
+writecf 124 through
+writecf 206 the
+writecf 198 door
+writecf 214 and
+writecf 48 found
+writecf 40 themselves
+writecf 89 in
+writecf 127 England
+writecf 56 again
+writecf 164 it
+writecf 182 all
+writecf 120 seemed
+writecf 177 to
+writecf 161 have
+writecf 7 taken
+writecf 186 no
+writecf 79 time
+writecf 34 at
+writecf 192 all
+writecf 208 At
+writecf 204 any
+writecf 27 rate
+writecf 104 no
+writecf 195 one
+writecf 55 noticed
+writecf 191 that
+writecf 96 they
+writecf 100 had
+writecf 137 ever
+writecf 135 been
+writecf 180 away
+writecf 72 and
+writecf 95 they
+writecf 49 never
+writecf 155 told
+writecf 145 anyone
+writecf 6 except
+writecf 30 one
+writecf 12 very
+writecf 133 wise
+writecf 66 grown-up
+##!
+readcf 217
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 1000
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 35
+#Lucy
+readcf 147
+#
+readcf 37
+#
+readcf 66
+#grown-up
+readcf 143
+#
+readcf 32
+#
+readcf 187
+#
+readcf 133
+#wise
+readcf 49
+#never
+readcf 57
+#Kings
+readcf 215
+#
+readcf 92
+#
+readcf 99
+#there
+readcf 173
+#
+readcf 142
+#they
+readcf 113
+#Wardrobe
+readcf 155
+#told
+readcf 141
+#the
+readcf 196
+#Island
+readcf 78
+#
+readcf 96
+#they
+readcf 152
+#
+readcf 9
+#
+readcf 197
+#told
+readcf 21
+#
+readcf 124
+#through
+readcf 22
+#
+readcf 161
+#have
+readcf 16
+#
+readcf 39
+#world
+readcf 172
+#in
+readcf 45
+#and
+readcf 65
+#has
+readcf 90
+#
+readcf 164
+#it
+readcf 112
+#adventure
+readcf 52
+#
+readcf 56
+#again
+readcf 117
+#for
+readcf 156
+#Peter
+readcf 183
+#
+readcf 211
+#
+readcf 126
+#whose
+readcf 150
+#it
+readcf 111
+#
+readcf 101
+#
+readcf 41
+#world
+readcf 15
+#
+readcf 189
+#Edmund
+readcf 83
+#opened
+readcf 114
+#and
+readcf 6
+#except
+readcf 27
+#rate
+readcf 165
+#had
+readcf 89
+#in
+readcf 191
+#that
+readcf 132
+#wardrobe
+readcf 154
+#called
+readcf 80
+#they
+readcf 36
+#
+readcf 162
+#in
+readcf 116
+#they
+readcf 200
+#to
+readcf 192
+#all
+readcf 208
+#At
+readcf 213
+#years
+readcf 137
+#ever
+readcf 71
+#seemed
+readcf 123
+#
+readcf 109
+#
+readcf 82
+#were
+readcf 185
+#
+readcf 198
+#door
+readcf 134
+#
+readcf 171
+#
+readcf 81
+#
+readcf 74
+#
+readcf 168
+#that
+readcf 122
+#
+readcf 85
+#another
+readcf 88
+#had
+readcf 76
+#had
+readcf 47
+#
+readcf 0
+#back
+readcf 46
+#in
+readcf 110
+#when
+readcf 105
+#The
+readcf 70
+#quite
+readcf 63
+#
+readcf 151
+#
+readcf 182
+#all
+readcf 205
+#they
+readcf 130
+#
+readcf 120
+#seemed
+readcf 177
+#to
+readcf 115
+#
+readcf 7
+#taken
+readcf 102
+#Lion
+readcf 12
+#very
+readcf 190
+#names
+readcf 3
+#
+readcf 91
+#
+readcf 44
+#reign
+readcf 195
+#one
+readcf 30
+#one
+readcf 40
+#themselves
+readcf 28
+#Queens
+readcf 48
+#found
+readcf 58
+#
+readcf 29
+#in
+readcf 202
+#the
+readcf 169
+#
+readcf 79
+#time
+readcf 13
+#they
+readcf 75
+#called
+readcf 94
+#
+readcf 158
+#Witch
+readcf 125
+#
+readcf 17
+#
+readcf 135
+#been
+readcf 72
+#and
+readcf 84
+#found
+readcf 43
+#
+readcf 87
+#
+readcf 31
+#
+readcf 55
+#noticed
+readcf 8
+#
+readcf 180
+#away
+readcf 140
+#themselves
+readcf 153
+#
+readcf 108
+#came
+readcf 97
+#
+readcf 209
+#a
+readcf 38
+#ours
+readcf 186
+#no
+readcf 216
+#
+readcf 129
+#Narnia
+readcf 194
+#children
+readcf 100
+#had
+readcf 64
+#
+readcf 179
+#in
+readcf 148
+#door
+readcf 14
+#different
+readcf 193
+#
+readcf 144
+#years
+readcf 18
+#
+readcf 62
+#of
+readcf 73
+#
+readcf 67
+#
+readcf 60
+#
+readcf 51
+#
+readcf 11
+#
+readcf 34
+#at
+readcf 166
+#from
+readcf 127
+#England
+readcf 131
+#a
+readcf 106
+#remarkable
+readcf 139
+#
+readcf 121
+#country
+readcf 206
+#the
+readcf 107
+#
+readcf 68
+#and
+readcf 77
+#and
+readcf 175
+#
+readcf 178
+#but
+readcf 157
+#
+readcf 181
+#
+readcf 53
+#While
+readcf 176
+#
+readcf 146
+#
+readcf 170
+#
+readcf 204
+#any
+readcf 103
+#They
+readcf 20
+#different
+readcf 10
+#
+readcf 160
+#
+readcf 174
+#
+readcf 95
+#they
+readcf 188
+#
+readcf 214
+#and
+readcf 69
+#a
+readcf 119
+#were
+readcf 1
+#
+readcf 201
+#Narnia
+readcf 149
+#been
+readcf 138
+#
+readcf 118
+#
+readcf 93
+#
+readcf 42
+#
+readcf 136
+#were
+readcf 24
+#become
+readcf 50
+#
+readcf 59
+#a
+readcf 19
+#
+readcf 25
+#
+readcf 33
+#the
+readcf 86
+#
+readcf 98
+#how
+readcf 104
+#no
+readcf 210
+#Once
+readcf 199
+#
+readcf 23
+#four
+readcf 54
+#
+readcf 128
+#and
+readcf 212
+#
+readcf 203
+#Susan
+readcf 167
+#
+readcf 61
+#
+readcf 207
+#
+readcf 159
+#magic
+readcf 184
+#
+readcf 5
+#
+readcf 4
+#
+readcf 163
+#
+readcf 2
+#book
+readcf 26
+#and
+readcf 145
+#anyone
+##!
+sizecf
+#217
+##!
+##!
+##!------------------------------------------------------------------
+##4.7.2 mode CREATE, num_pages = 7, ple, ampliant cfile
+##!------------------------------------------------------------------
+##!
+writecf 217 Prince
+writecf 218 Caspian 
+##!
+sizecf
+#248
+##!
+readcf 217
+#Prince
+readcf 218
+#Caspian
+readcf 1000
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 35
+#Lucy
+readcf 147
+#
+readcf 37
+#
+readcf 66
+#grown-up
+readcf 143
+#
+readcf 32
+#
+readcf 187
+#
+readcf 133
+#wise
+readcf 49
+#never
+readcf 57
+#Kings
+readcf 215
+#
+readcf 92
+#
+readcf 99
+#there
+readcf 173
+#
+readcf 142
+#they
+readcf 113
+#Wardrobe
+readcf 155
+#told
+readcf 141
+#the
+readcf 196
+#Island
+readcf 78
+#
+readcf 96
+#they
+readcf 152
+#
+readcf 9
+#
+readcf 197
+#told
+readcf 21
+#
+readcf 124
+#through
+readcf 22
+#
+readcf 161
+#have
+readcf 16
+#
+readcf 39
+#world
+readcf 172
+#in
+readcf 45
+#and
+readcf 65
+#has
+readcf 90
+#
+readcf 164
+#it
+readcf 112
+#adventure
+readcf 52
+#
+readcf 56
+#again
+readcf 117
+#for
+readcf 156
+#Peter
+readcf 183
+#
+readcf 211
+#
+readcf 126
+#whose
+readcf 150
+#it
+readcf 111
+#
+readcf 101
+#
+readcf 41
+#world
+readcf 15
+#
+readcf 189
+#Edmund
+readcf 83
+#opened
+readcf 114
+#and
+readcf 6
+#except
+readcf 27
+#rate
+readcf 165
+#had
+readcf 89
+#in
+readcf 191
+#that
+readcf 132
+#wardrobe
+readcf 154
+#called
+readcf 80
+#they
+readcf 36
+#
+readcf 162
+#in
+readcf 116
+#they
+readcf 200
+#to
+readcf 192
+#all
+readcf 208
+#At
+readcf 213
+#years
+readcf 137
+#ever
+readcf 71
+#seemed
+readcf 123
+#
+readcf 109
+#
+readcf 82
+#were
+readcf 185
+#
+readcf 198
+#door
+readcf 134
+#
+readcf 171
+#
+readcf 81
+#
+readcf 74
+#
+readcf 168
+#that
+readcf 122
+#
+readcf 85
+#another
+readcf 88
+#had
+readcf 76
+#had
+readcf 47
+#
+readcf 0
+#back
+readcf 46
+#in
+readcf 110
+#when
+readcf 105
+#The
+readcf 70
+#quite
+readcf 63
+#
+readcf 151
+#
+readcf 182
+#all
+readcf 205
+#they
+readcf 130
+#
+readcf 120
+#seemed
+readcf 177
+#to
+readcf 115
+#
+readcf 7
+#taken
+readcf 102
+#Lion
+readcf 12
+#very
+readcf 190
+#names
+readcf 3
+#
+readcf 91
+#
+readcf 44
+#reign
+readcf 195
+#one
+readcf 30
+#one
+readcf 40
+#themselves
+readcf 28
+#Queens
+readcf 48
+#found
+readcf 58
+#
+readcf 29
+#in
+readcf 202
+#the
+readcf 169
+#
+readcf 79
+#time
+readcf 13
+#they
+readcf 75
+#called
+readcf 94
+#
+readcf 158
+#Witch
+readcf 125
+#
+readcf 17
+#
+readcf 135
+#been
+readcf 72
+#and
+readcf 84
+#found
+readcf 43
+#
+readcf 87
+#
+readcf 31
+#
+readcf 55
+#noticed
+readcf 8
+#
+readcf 180
+#away
+readcf 140
+#themselves
+readcf 153
+#
+readcf 108
+#came
+readcf 97
+#
+readcf 209
+#a
+readcf 38
+#ours
+readcf 186
+#no
+readcf 216
+#
+readcf 129
+#Narnia
+readcf 194
+#children
+readcf 100
+#had
+readcf 64
+#
+readcf 179
+#in
+readcf 148
+#door
+readcf 14
+#different
+readcf 193
+#
+readcf 144
+#years
+readcf 18
+#
+readcf 62
+#of
+readcf 73
+#
+readcf 67
+#
+readcf 60
+#
+readcf 51
+#
+readcf 11
+#
+readcf 34
+#at
+readcf 166
+#from
+readcf 127
+#England
+readcf 131
+#a
+readcf 106
+#remarkable
+readcf 139
+#
+readcf 121
+#country
+readcf 206
+#the
+readcf 107
+#
+readcf 68
+#and
+readcf 77
+#and
+readcf 175
+#
+readcf 178
+#but
+readcf 157
+#
+readcf 181
+#
+readcf 53
+#While
+readcf 176
+#
+readcf 146
+#
+readcf 170
+#
+readcf 204
+#any
+readcf 103
+#They
+readcf 20
+#different
+readcf 10
+#
+readcf 160
+#
+readcf 174
+#
+readcf 95
+#they
+readcf 188
+#
+readcf 214
+#and
+readcf 69
+#a
+readcf 119
+#were
+readcf 1
+#
+readcf 201
+#Narnia
+readcf 149
+#been
+readcf 138
+#
+readcf 118
+#
+readcf 93
+#
+readcf 42
+#
+readcf 136
+#were
+readcf 24
+#become
+readcf 50
+#
+readcf 59
+#a
+readcf 19
+#
+readcf 25
+#
+readcf 33
+#the
+readcf 86
+#
+readcf 98
+#how
+readcf 104
+#no
+readcf 210
+#Once
+readcf 199
+#
+readcf 23
+#four
+readcf 54
+#
+readcf 128
+#and
+readcf 212
+#
+readcf 203
+#Susan
+readcf 167
+#
+readcf 61
+#
+readcf 207
+#
+readcf 159
+#magic
+readcf 184
+#
+readcf 5
+#
+readcf 4
+#
+readcf 163
+#
+readcf 2
+#book
+readcf 26
+#and
+readcf 145
+#anyone
+##!
+##!
+##!------------------------------------------------------------------
+##4.7.3 mode CREATE, num_pages = 1, ple, destructora
+##!------------------------------------------------------------------
+##!
+cf destroy
+##!
+% cmp 47.dat 47.cfi
+##!
+##!
+##!
+##!------------------------------------------------------------------
+##4.9 mode OPEN, num_pages = 1
+##!------------------------------------------------------------------
+##!
+% cp 49.dat 49.cfi
+init cf cfile<palabra> 49.cfi OPEN pC
+##!
+sizecf
+#31
+##!
+##!
+##!------------------------------------------------------------------
+##4.9.1 mode OPEN, num_pages = 1, lectures
+##!------------------------------------------------------------------
+##!
+readcf 31
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 100
+#Error::cfile:21:El indice del elemento esta fuera de rango.
+readcf 12
+#grande
+readcf 25
+#
+readcf 8
+#pajaro
+readcf 24
+#marzo
+readcf 0
+#
+readcf 2
+#
+readcf 18
+#papelera
+readcf 21
+#solo
+readcf 1
+#olmo
+readcf 16
+#aguafiestas
+readcf 1
+#olmo
+readcf 7
+#imprescindible
+readcf 10
+#forunculo
+readcf 28
+#
+readcf 30
+#
+readcf 20
+#espacio
+readcf 26
+#comentabamos
+readcf 4
+#
+readcf 23
+#
+readcf 5
+#opciones
+readcf 14
+#barroco
+readcf 17
+#
+readcf 29
+#introduccion
+readcf 13
+#picaza
+readcf 15
+#
+readcf 22
+#investigar
+readcf 19
+#burbuja
+readcf 9
+#estrella
+readcf 3
+#lectura
+readcf 6
+#
+readcf 27
+#elecciones
+##!
+sizecf
+#31
+##!
+##!
+##!------------------------------------------------------------------
+##4.9.2 mode OPEN, num_pages = 1, destructora
+##!------------------------------------------------------------------
+##!
+cf destroy
+##!
+##!
+##!
+pC destroy
+##!
+##!
+##!
