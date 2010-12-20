@@ -1,0 +1,7 @@
+struct nodo {
+       int indice_real; //indice en la estructura cfile
+       int indice_v;    //indice en el vector
+       bool escrito;    //bit de escritura, en caso de cierto al eliminar de la cache escribir en cfile   
+       nodo * sig;      //puntero al siguiente nodo
+       nodo * ant;      //puntero al anterior nodo
+};
