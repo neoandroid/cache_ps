@@ -1,12 +1,3 @@
-template <class T> class Hash {
-private:
-  nat M_;
-public:
-  explicit Hash(nat M) throw();
-  int operator()(const T& x) const throw();
-};
-
-
 tasoc(const string& filename, cache* pC = NULL, nat M = 1009, nat Mt = 1109) throw(error)
 {
 	fileName = fileName;

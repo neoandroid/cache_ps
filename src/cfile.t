@@ -1,19 +1,16 @@
-
-
-
-
-	cfile(const string& filename, file::modo m = file::OPEN, cache* pC = NULL, nat num_pages = 0, nat page_size = file::pagina::DEFAULT_PAGE_SIZE) throw(error)
+template <class T>
+	cfile<T>::cfile(const string& filename, file::modo m = file::OPEN, cache* pC = NULL, nat num_pages = 0, nat page_size = file::pagina::DEFAULT_PAGE_SIZE) throw(error)
 	{
 		if (m == file::OPEN)
 		{
 			// Abrimos un archivo existente
 			try
 			{
-				archivo = new file(filname, m);
-				num_pages_ = archivo.num_pages();
-				page_size_ = archivo.page_size();
+				archivo = new file(filename, m, page_size);
+				num_pages_ = archivo->num_pages();
+				page_size_ = archivo->page_size();
 				cacheImp = pC;
-				size = 0;
+				size_ = 0;
 			}
 			catch (int e)
 			{
@@ -25,11 +22,11 @@
 			// Creamos un nuevo archivo
 			try
 			{
-				archivo = new file(filename, m, page_size)
+				archivo = new file(filename, m, page_size);
 				num_pages_ = num_pages;
 				page_size_ = page_size;
 				cacheImp = pC;
-				size = 0;
+				size_ = 0;
 			}
 			catch (int e)
 			{
@@ -46,38 +43,40 @@
 		{
 			nat paginas = 1;
 			cacheImp = new cache_FIFO(paginas);
-			cacheImp.asocia_fichero(archivo);
+			cacheImp->asocia_fichero(archivo);
 		}
 	}
 
-	~cfile() throw()
+template <class T>
+	cfile<T>::~cfile() throw()
 	{
 		
 	}
 
-	void read(nat i, T& x) const throw(error)
+template <class T>
+	void cfile<T>::read(nat i, T& x) const throw(error)
 	{
-		if (i >= size)
+		if (i >= size_)
 		{
 			throw(IndiceFueraRango);
 		}
 		else
 		{
-			nat pagina = i/page_size;
-			nat offset = i-(pagina*page_size); 
-			fiel::pagina p = new file::pagina(page_size);
-			read_bytes(&p, offset, x);
+			nat pagina = i/page_size_;
+			nat offset = i-(pagina*page_size_); 
+			file::pagina p = new file::pagina(page_size_);
+			read_bytes(p, offset, x);
 		}
 	}
 
-	void write(nat i, const T& x) throw(error)
+template <class T>
+	void cfile<T>::write(nat i, const T& x) throw(error)
 	{
 		
 	}
 
-	nat size() const throw()
+template <class T>
+	nat cfile<T>::size() const throw()
 	{
-		  return size;
+		  return size_;
 	}
-
-

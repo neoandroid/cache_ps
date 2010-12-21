@@ -11,7 +11,8 @@
 using namespace std;
 
 
-template <class T> class Hash {
+template <class T>
+class Hash {
 private:
   nat M_;
 public:

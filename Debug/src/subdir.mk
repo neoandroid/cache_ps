@@ -3,6 +3,9 @@
 ################################################################################
 
 # Add inputs and outputs from these tool invocations to the build variables 
+O_SRCS += \
+../src/cache.o 
+
 CPP_SRCS += \
 ../src/cache.cpp \
 ../src/cache_FIFO.cpp \
