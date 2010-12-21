@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-#include <ps/error>
-#include <ps/util>
+#include <error>
+#include <util>
 
 #include "cfile.hpp"
 

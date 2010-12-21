@@ -1,3 +1,5 @@
 mutable fstream fd_;
 nat num_pages_;
 nat page_size_;
+file archivo;
+cache* cache;

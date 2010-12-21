@@ -2,8 +2,8 @@
 #define _CFILE_HPP
 #include <iostream>
 
-#include <ps/error>
-#include <ps/util>
+#include <error>
+#include <util>
 
 #include "file.hpp"
 #include "cache.hpp"

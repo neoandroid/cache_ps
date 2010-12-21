@@ -94,6 +94,9 @@ public:
 
 private:
   #include "cache_FIFO.rep"
+  bool esta_en_cache(file::pagina x, int &ref);
+  void borrar_cola(nodo * p);
+  cache_FIFO::nodo* copia_nodo(cache_FIFO::nodo* p);
 };
 
 class cache_LFU : public cache {
