@@ -44,7 +44,7 @@ all: cache
 cache: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++  -o"cache" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++ -L"/home/neo/workspace/cache/src" -o"cache" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

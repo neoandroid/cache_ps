@@ -4,5 +4,5 @@
 
 USER_OBJS :=
 
-LIBS := -l/cache/src/ps/error
+LIBS :=
 

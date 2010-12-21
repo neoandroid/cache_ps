@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 #include <list>
-#include <error>
+#include <ps/error>
 #include <sys/time.h>
 #include <utility>
 

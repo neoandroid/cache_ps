@@ -6,15 +6,15 @@
 #include "cache.hpp"
 
 
-cache_FIFO(nat k) throw(error){
-        size_ = k;	
+cache_LRU::cache_LRU(nat k) throw(error){
+        size_ = k;
         size = 0;
-        prim = NULL;
-        ult = NULL;
-        file::pagina v[size_];        
+	    prim = NULL;
+	    ult = NULL;
+	    file::pagina* v =new file::pagina[size_];        
 }
 
-nodo copia_nodo(nodo * p){
+cache_LRU::nodo* cache_LRU::copia_nodo(cache_LRU::nodo* p){
      nodo * aux = new nodo;
      aux->indice_real = p->indice_real;
      aux->indice_v = p->indice_v;
@@ -22,80 +22,94 @@ nodo copia_nodo(nodo * p){
      return aux;
 }
 
-cache_FIFO(const cache_FIFO& c) throw(error){   //constructora por copia
-	for(int i = 0; i < v.size(); ++i) v[i] = c.v[i];
+cache_LRU::cache_LRU(const cache_LRU& c) throw(error){    //constructora por copia
+	for(int i = 0; i < int(size_); ++i)
+		v[i] = c.v[i];
 	size = c.size;
-	nodo * p = c.prim;
+	cache_LRU::nodo *p = c.prim;
 	if(c.prim != NULL){
-	        nodo aux = new nodo;
-	        aux = copia_nodo(p);
-	        aux-> ant = NULL;
-	        prim = aux;
-	        if(prim->sig == NULL) ult = aux;
-	        while(p != c.ult){
-                    nodo aux2 = new nodo;
-                    aux2 = copia_nodo(p->sig);
-                    aux->sig = aux2;
-                    aux2->ant = aux;
-                    aux = aux2;
-                    p = p->sig;
-                    if(p->sig = NULL) ult = aux2;
-            }
-         		
+		cache_LRU::nodo *aux = new cache_LRU::nodo;
+		aux = copia_nodo(p);
+		aux-> ant = NULL;
+		prim = aux;
+		if(prim->sig == NULL)
+			ult = aux;
+		while(p != c.ult){
+			cache_LRU::nodo *aux2 = new cache_LRU::nodo;
+			aux2 = copia_nodo(p->sig);
+			aux->sig = aux2;
+			aux2->ant = aux;
+			aux = aux2;
+			p = p->sig;
+			if(p->sig == NULL)
+				ult = aux2;
+		}
 	}
 }
-cache_FIFO& operator=(const cache_FIFO& c) throw(error){       //operador de asgnación, hago lo mismo que en de copia pero devolvemos referencia
-    for(int i = 0; i < v.size(); ++i) v[i] = c.v[i];
+cache_LRU& cache_LRU::operator=(const cache_LRU& c) throw(error){       //operador de asgnación, hago lo mismo que en de copia pero devolvemos referencia
+    for(int i = 0; i < int(size_); ++i)
+    	v[i] = c.v[i];
 	size = c.size;
-	nodo * p = c.prim;
-	if(c.prim != NULL){
-	        nodo aux = new nodo;
-	        aux = copia_nodo(p);
-	        aux-> ant = NULL;
-	        prim = aux;
-	        if(prim->sig == NULL) ult = aux;
-	        while(p != c.ult){
-                    nodo aux2 = new nodo;
-                    aux2 = copia_nodo(p->sig);
-                    aux->sig = aux2;
-                    aux2->ant = aux;
-                    aux = aux2;
-                    p = p->sig;
-                    if(p->sig = NULL) ult = aux2;
-            }
-         		
+	cache_LRU::nodo* p = c.prim;
+	if(c.prim != NULL)
+	{
+		cache_LRU::nodo* aux = new cache_LRU::nodo;
+		aux = copia_nodo(p);
+		aux-> ant = NULL;
+		prim = aux;
+		if(prim->sig == NULL)
+			ult = aux;
+		while(p != c.ult){
+			cache_LRU::nodo* aux2 = new cache_LRU::nodo;
+			aux2 = copia_nodo(p->sig);
+			aux->sig = aux2;
+			aux2->ant = aux;
+			aux = aux2;
+			p = p->sig;
+			if(p->sig == NULL)
+				ult = aux2;
+		}
 	}
-	return *this
+	return *this;
 }
 
-~cache_FIFO() throw(){
+cache_LRU::~cache_LRU() throw(){
 }
 
-cache* clone() const throw(error){
-       cache_FIFO c;
+cache* cache_LRU::clone() const throw(error){
+       /*cache_LRU c;
        c = this;
-       return *c;
+       return c;*/
 }
 
-void borrar_cola(nodo * p){       //operacion auxiliar,borramos cola de prioridad
-     nodo * aux = p->sig;
-     while(aux!=NULL){
-                      delete p;
-                      p=aux;
-                      aux=aux->sig;
-     }
+void cache_LRU::borrar_cola(nodo * p){       //operacion auxiliar,borramos cola de prioridad
+	nodo * aux = p->sig;
+	while(aux!=NULL){
+		delete p;
+		p=aux;
+		aux=aux->sig;
+	}
 }
 
-void flush() throw(error){
+void cache_LRU::flush() throw(error){
 	if(pf_ != NULL){  //error si no hay fichero asociado
 		nodo * aux = prim;
 		while(aux->sig!=NULL){
-			put_bytes(indice_real,0,v[aux->indice_v]);
+			if (aux->escrito == true)
+			{
+				pf_->write(aux->indice_real,v[aux->indice_v]);
+			}
 			aux = aux->sig;
 		}
-		if(ult != NULL)put_bytes(indice_real,0,v[aux->indice_v]);
+		if(ult != NULL)
+		{
+			if (aux->escrito == true)
+				pf_->write(aux->indice_real,v[aux->indice_v]);
+		}
 	}
-	v = file::pagina v[];
+	delete v;
+	file::pagina* v;
+	v = new file::pagina[size_];
 	borrar_cola(prim);
 	prim = NULL;
 	ult = NULL;
@@ -103,26 +117,28 @@ void flush() throw(error){
 }
 
 //operacion auxiliar
-bool esta_en_cache(file::pagina x, int &ref){
-     for(int i = 0; i < v.size(); ++i){
-             if(v[i]==x){
-                         ref = i;
-                         return true;
-             }
-     }
-     return false;
+bool cache_LRU::esta_en_cache(int i, int &ref){
+        nodo* aux = prim;
+		while(aux!=NULL){
+			if (aux->indice_real == i){
+               ref = aux->indice_v;
+               return true;
+            }
+			aux = aux->sig;
+		}
+	    return false;
 }
 
-file::pagina get_read(nat i) throw(error){
+file::pagina cache_LRU::get_read(nat i) throw(error){
              file::pagina x;
              int j;
-             read_bytes(i,0,x);         //error si no hay fichero aosciado
-             if(esta_en_cache(x,j)){
+             if(esta_en_cache(i,j)){
                                   hits_++;
+                                  x = v[j];
                                   nodo * p = prim;
                                   bool b = true;
 		                          while(p != NULL && b){  //error si no se encuentra????
-			                                            if(p->indice_v == i) b = false;;
+			                                            if(p->indice_v == i) b = false;
                                                         else p = p->sig;
                                   }
                                   nodo * t = p->ant;
@@ -134,10 +150,11 @@ file::pagina get_read(nat i) throw(error){
                                   prim = p;
              }
              else{   
-                     nodo* aux= new nodo;
+                     pf_->read(i,x);
+                     cache_LRU::nodo* aux= new cache_LRU::nodo;
                      misses_++;  
                      aux-> indice_real = i;
-                     aux-> escrito = true;
+                     aux-> escrito = false;
                      aux-> ant = NULL;
                      if(size > 0){ //cache con elementos
                              if(size < size_){         //cache no completa
@@ -150,7 +167,7 @@ file::pagina get_read(nat i) throw(error){
                                      prim = aux;
                               
                               }else{  //cache completa
-                                     if(ult->escrito) put_bytes(indice_real,0,v[aux->indice_v]);
+                                     if(ult->escrito) pf_->write(aux->indice_real,v[aux->indice_v]);
                                      v[ult->indice_v] = x;
                                      aux->indice_v = ult->indice_v;
                                      ult=ult->ant;
@@ -170,20 +187,20 @@ file::pagina get_read(nat i) throw(error){
              }
              return x;
 }
-}
 
-file::pagina& get_write(nat i) throw(error){
+
+file::pagina& cache_LRU::get_write(nat i) throw(error){
              int referencia;  
              file::pagina x;
-             read_bytes(i,0,x);
-             if(esta_en_cache(x,referencia)){
+             if(esta_en_cache(i,referencia)){
                                   hits_++;
                                   nodo * p = prim;
                                   bool b = true;
 		                          while(p != NULL && b){  //error si no se encuentra????
-			                                            if(p->indice_v == i) b = false;;
+			                                            if(p->indice_v == i) b = false;
                                                         else p = p->sig;
                                   }
+                                  p->escrito = true;
                                   nodo * t = p->ant;
                                   t->sig = p->sig;
                                   if(p-> sig != NULL)p->sig->ant = t;
@@ -193,10 +210,11 @@ file::pagina& get_write(nat i) throw(error){
                                   prim = p;
              }
              else{   
+               pf_->read(i,x);
                misses_++;
-		       nodo* aux= new nodo;
+		       cache_LRU::nodo* aux= new cache_LRU::nodo;
 		       aux-> indice_real = i;
-		       aux-> escrito = false;
+		       aux-> escrito = true;
 		       aux->ant = NULL;
 		       if(size > 0){         //cache con elementos
 				 if(size < size_){   //cahe no completa
@@ -209,7 +227,7 @@ file::pagina& get_write(nat i) throw(error){
 					  prim-> ant = aux;
 					  prim = aux;
 				  }else{  //cache completa
-					  if(ult->escrito) put_bytes(indice_real,0,v[aux->indice_v]);
+					  if(ult->escrito) pf_->write(aux->indice_real,v[aux->indice_v]);
 					  v[ult->indice_v] = x;
 					  aux->indice_v = ult->indice_v;
 					  ult=ult->ant;
@@ -229,11 +247,11 @@ file::pagina& get_write(nat i) throw(error){
 			      ult = aux;
 			}
      }
-     return *v[referencia];
-}
+     return v[referencia];
 }
 
-void print(ostream& os) const throw (){
+
+void cache_LRU::print(ostream& os) const throw (){
      nodo * aux = prim;
      while(aux->sig!=NULL){
                os << aux->indice_real;

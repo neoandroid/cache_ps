@@ -5,3 +5,4 @@ struct nodo {
        nodo * sig;      //puntero al siguiente nodo
        nodo * ant;      //puntero al anterior nodo
 };
+int i;

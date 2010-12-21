@@ -1,28 +1,15 @@
-#include <iostream>
-
-#include <error>
-#include <util>
-
-#include "file.hpp"
-#include "cache.hpp"
-
-using namespace std;
-
-using util::nat;
 
 
-template <class T>
-class cfile {
-public:
 
-	explicit cfile(const string& filename, file::modo m = file::OPEN, cache* pC = NULL, nat num_pages = 0, nat page_size = file::pagina::DEFAULT_PAGE_SIZE) throw(error)
+
+	cfile(const string& filename, file::modo m = file::OPEN, cache* pC = NULL, nat num_pages = 0, nat page_size = file::pagina::DEFAULT_PAGE_SIZE) throw(error)
 	{
 		if (m == file::OPEN)
 		{
 			// Abrimos un archivo existente
 			try
 			{
-				archivo = new file(filname, m)
+				archivo = new file(filname, m);
 				num_pages_ = archivo.num_pages();
 				page_size_ = archivo.page_size();
 				cacheImp = pC;
@@ -92,5 +79,5 @@ public:
 	{
 		  return size;
 	}
-};
+
 

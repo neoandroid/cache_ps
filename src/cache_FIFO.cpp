@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 #include "cache.hpp"
-#include "cfile.hpp"
 
 
 
@@ -104,14 +103,14 @@ void cache_FIFO::flush() throw(error){
                
 				//put_bytes(aux->indice_real,0,v[aux->indice_v]);
                 //file::pagina x;
-				escribe(aux->indice_real,v[aux->indice_v]);
+				pf_->write(aux->indice_real,v[aux->indice_v]);
 			}
 			aux = aux->sig;
 		}
 		if(ult != NULL)
 		{
 			if (aux->escrito == true)
-				escribe(aux->indice_real,v[aux->indice_v]);
+				pf_->write(aux->indice_real,v[aux->indice_v]);
 		}
 	}
 	delete v;
@@ -140,14 +139,12 @@ bool cache_FIFO::esta_en_cache(int i, int &ref){
 file::pagina cache_FIFO::get_read(nat i) throw(error){
 	file::pagina x;
 	int j;
-	
-	//error si no hay fichero aosciado
 	if(esta_en_cache(i,j)){
 		hits_++;
 		x = v[j];
     }
 	else{
-        lee(i,x);
+        pf_->read(i,x);
 		cache_FIFO::nodo* aux= new cache_FIFO::nodo;
 		misses_++;
 		aux-> indice_real = i;
@@ -164,13 +161,20 @@ file::pagina cache_FIFO::get_read(nat i) throw(error){
 				prim = aux;
 			}else{  //cache completa
 				if(ult->escrito)
-					escribe(ult->indice_real,v[ult->indice_v]);
+					pf_->write(aux->indice_real,v[aux->indice_v]);
 				v[ult->indice_v] = x;
 				aux->indice_v = ult->indice_v;
-				ult=ult->ant;
-				delete ult->sig;
-				aux->sig=prim;
-				prim->ant = aux;
+				if(size > 1){
+                        ult=ult->ant;
+				        delete ult->sig;
+				        aux->sig=prim;
+				        prim->ant = aux;
+                }else {
+                      delete ult;
+                      prim = aux;
+                      ult = aux;
+                      aux->sig = NULL;
+                }
 				prim=aux;
 			}
 		}else{    //cache vacia
@@ -188,10 +192,10 @@ file::pagina cache_FIFO::get_read(nat i) throw(error){
 file::pagina& cache_FIFO::get_write(nat i) throw(error){
 	int referencia;
 	file::pagina x;
-	if(esta_en_cache(i,referencia)) hits_++;
+	if(esta_en_cache(i,referencia)) hits_++;   //esrito = true;
 	else{
 		misses_++;
-		lee(i,x);
+		pf_->read(i,x);
 		cache_FIFO::nodo* aux= new cache_FIFO::nodo;
 		aux-> indice_real = i;
 		aux-> escrito = true;
@@ -208,14 +212,21 @@ file::pagina& cache_FIFO::get_write(nat i) throw(error){
 				prim = aux;
 			}else{  //cache completa
 				if(ult->escrito)
-					escribe(aux->indice_real,v[aux->indice_v]);
+					pf_->write(aux->indice_real,v[aux->indice_v]);
 				v[ult->indice_v] = x;
 				aux->indice_v = ult->indice_v;
-				ult=ult->ant;
 				referencia=aux->indice_v;
-				delete ult->sig;
-				aux->sig=prim;
-				prim->ant = aux;
+				if(size > 1){
+                        ult=ult->ant;
+				        delete ult->sig;
+				        aux->sig=prim;
+				        prim->ant = aux;
+                }else {
+                      delete ult;
+                      prim = aux;
+                      ult = aux;
+                      aux->sig = NULL;
+                }
 				prim=aux;
 			}
 		}else{    //cache vacia

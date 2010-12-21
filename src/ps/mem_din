@@ -36,10 +36,10 @@ namespace mem_din {
   const int CreacionPoolIncorrecta = 11;
   const int MemDinNoConfigurable   = 12;
   const int ParMemDinIncorrectos   = 13;
-  const string MsgFaltaMemoriaDin = "Memoria dinámica insuficiente";
+  const string MsgFaltaMemoriaDin = "Memoria dinï¿½mica insuficiente";
   const string MsgMemDinNoConfigurable = 
   "No se puede reconfigurar la memoria";
   const string MsgParMemDinIncorrectos = 
-  "Parámetros de reconfiguración incorrectos";
+  "Parï¿½metros de reconfiguraciï¿½n incorrectos";
 };
 #endif
