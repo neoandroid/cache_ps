@@ -56,6 +56,8 @@ protected:
   nat page_size_;
   nat hits_, misses_;
   #include "cache.rep"
+  void lee(nat i, file::pagina& p);
+  void escribe(nat i, file::pagina& p);
 };
 
 class cache_LRU : public cache {
@@ -94,7 +96,7 @@ public:
 
 private:
   #include "cache_FIFO.rep"
-  bool esta_en_cache(file::pagina x, int &ref);
+  bool esta_en_cache(int i, int &ref);
   void borrar_cola(nodo * p);
   cache_FIFO::nodo* copia_nodo(cache_FIFO::nodo* p);
 };

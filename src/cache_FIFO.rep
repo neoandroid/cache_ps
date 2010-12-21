@@ -1,3 +1,4 @@
+
 struct nodo {
        int indice_real; //indice en la estructura cfile
        int indice_v;    //indice en el vector
@@ -5,6 +6,7 @@ struct nodo {
        nodo* sig;      //puntero al siguiente nodo
        nodo* ant;      //puntero al anterior nodo
 };
+
 nodo *prim , *ult;      //punteros al primer y ultimo elemento de la cache
-file::pagina* v[];    //estructura donde almacenaremos las paginas de la cache
+file::pagina v[];    //estructura donde almacenaremos las paginas de la cache
 nat size;              //tamaño actual de la cache

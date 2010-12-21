@@ -1,0 +1,10 @@
+
+nat estado[];			// array estado posicion tabla (0=libre, 1=ocupado, 2=borrado)
+nat lista[];			// lista de sinonimos
+struct nodo {
+	T info;
+	int a;
+};
+cfile<nodo>* tabla;		// cfile que contiene la tabla
+string* filename;		// nombre archivo diccionario
+nat capacidadMaxima;	// capacidad maxima del diccionario
