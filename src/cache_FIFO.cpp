@@ -48,7 +48,7 @@ cache_FIFO::cache_FIFO(const cache_FIFO& c) throw(error){   //constructora por c
 	}
 }
 
-cache_FIFO& cache_FIFO::operator=(const cache_FIFO& c) throw(error){       //operador de asgnaci�n, hago lo mismo que en de copia pero devolvemos referencia
+cache_FIFO& cache_FIFO::operator=(const cache_FIFO& c) throw(error){       //operador de asgnacion, hago lo mismo que en de copia pero devolvemos referencia
 	for(int i = 0; i < int(size_); ++i)
     	v[i] = c.v[i];
 	size = c.size;
@@ -79,9 +79,9 @@ cache_FIFO::~cache_FIFO() throw(){
 }
 
 cache* cache_FIFO::clone() const throw(error){
-	/*cache_FIFO c;
-	c = this;
-	return *c;*/
+	/*cache_FIFO c = new;
+	c = *this;
+	return &c;*/
 }
 
 void cache_FIFO::borrar_cola(nodo * p){       //operacion auxiliar,borramos cola de prioridad
