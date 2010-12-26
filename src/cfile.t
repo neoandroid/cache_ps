@@ -1,5 +1,5 @@
 template <class T>
-	cfile<T>::cfile(const string& filename, file::modo m = file::OPEN, cache* pC = NULL, nat num_pages = 0, nat page_size = file::pagina::DEFAULT_PAGE_SIZE) throw(error)
+	cfile<T>::cfile(const string& filename, file::modo m, cache* pC, nat num_pages, nat page_size) throw(error)
 	{
 		if (m == file::OPEN)
 		{
@@ -64,8 +64,8 @@ template <class T>
 		{
 			nat pagina = i/page_size_;
 			nat offset = i-(pagina*page_size_); 
-			file::pagina p = new file::pagina(page_size_);
-			read_bytes(p, offset, x);
+			file::pagina* p = new file::pagina(page_size_);
+			read_bytes(*p, offset, x);
 		}
 	}
 

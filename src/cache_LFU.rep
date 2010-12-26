@@ -1,8 +1,12 @@
+
 struct nodo {
        int indice_real; //indice en la estructura cfile
-       int indice_v;    //indice en el vector
        bool escrito;    //bit de escritura, en caso de cierto al eliminar de la cache escribir en cfile   
-       nodo * sig;      //puntero al siguiente nodo
-       nodo * ant;      //puntero al anterior nodo
+       nodo* sig;      //puntero al siguiente nodo
+       nodo* ant;      //puntero al anterior nodo
+       file::pagina p;
+       int frec;
 };
-int i;
+
+nodo *prim , *ult;      //punteros al primer y ultimo elemento de la cache
+nat size;              //tamaño actual de la cache

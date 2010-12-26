@@ -1,17 +1,20 @@
-tasoc(const string& filename, cache* pC = NULL, nat M = 1009, nat Mt = 1109) throw(error)
+template <class T, template <class> class HashFunct = Hash>
+tasoc<T, HashFunct<T> >::tasoc(const string& filename, cache* pC , nat M , nat Mt) throw(error)
 {
-	fileName = fileName;
+	fileName = *filename;
 	tabla = new int[Mt][2];
 	estado = new nat[Mt];
 	capacidadMaxima = Mt; 
 }
 
-~tasoc() throw(){
+template <class T, template <class> class HashFunct = Hash>
+tasoc<T, Hash >::~tasoc() throw(){
 	delete tabla;
 	delelte estado;  
 }
 
-void inserta(const T& x) throw(error)
+template <class T, template <class> class HashFunct = Hash>
+void tasoc<T,Hash<T>>::inserta(const T& x) throw(error)
 {
 	if (!contiene(x))
 	{
@@ -28,26 +31,31 @@ void inserta(const T& x) throw(error)
 	}	  
 }
 
-bool contiene(const T& x) const throw() {
+template <class T, template <class> class HashFunct = Hash>
+bool tasoc<T,Hash>::contiene(const T& x) const throw() {
   
 }
 
-nat size() const throw()
+template <class T, template <class> class HashFunct = Hash>
+nat tasoc<T,Hash>::size() const throw()
 {
   
 }
 
-void print(ostream& os) const throw()
+template <class T, template <class> class HashFunct = Hash>
+void tasoc<T,Hash>::print(ostream& os) const throw()
 {
   
 }
 
-tasoc(const tasoc& c) throw() 
+template <class T, template <class> class HashFunct = Hash>
+tasoc<T,Hash>::tasoc(const tasoc& c) throw() 
 {
 
 }
 
-tasoc&  operator=(const tasoc& c) throw() 
+template <class T, template <class> class HashFunct = Hash>
+tasoc&  tasoc<T,Hash>::operator=(const tasoc& c) throw() 
 {
 	return *this;
 }

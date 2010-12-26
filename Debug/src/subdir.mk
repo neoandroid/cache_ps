@@ -9,6 +9,7 @@ O_SRCS += \
 CPP_SRCS += \
 ../src/cache.cpp \
 ../src/cache_FIFO.cpp \
+../src/cache_LFU.cpp \
 ../src/cache_LRU.cpp \
 ../src/driver_cache.cpp \
 ../src/file.cpp 
@@ -16,6 +17,7 @@ CPP_SRCS += \
 OBJS += \
 ./src/cache.o \
 ./src/cache_FIFO.o \
+./src/cache_LFU.o \
 ./src/cache_LRU.o \
 ./src/driver_cache.o \
 ./src/file.o 
@@ -23,6 +25,7 @@ OBJS += \
 CPP_DEPS += \
 ./src/cache.d \
 ./src/cache_FIFO.d \
+./src/cache_LFU.d \
 ./src/cache_LRU.d \
 ./src/driver_cache.d \
 ./src/file.d 

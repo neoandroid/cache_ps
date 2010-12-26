@@ -6,5 +6,5 @@ struct nodo {
 	int a;
 };
 cfile<nodo>* tabla;		// cfile que contiene la tabla
-string* filename;		// nombre archivo diccionario
+string* fileName;		// nombre archivo diccionario
 nat capacidadMaxima;	// capacidad maxima del diccionario

@@ -161,11 +161,11 @@ file::pagina cache_FIFO::get_read(nat i) throw(error){
 				prim = aux;
 			}else{  //cache completa
 				if(ult->escrito)
-					pf_->write(aux->indice_real,v[aux->indice_v]);
-				v[ult->indice_v] = x;
+					pf_->write(ult->indice_real,v[ult->indice_v]);
 				aux->indice_v = ult->indice_v;
+				v[aux->indice_v] = x;
 				if(size > 1){
-                        ult=ult->ant;
+                    ult=ult->ant;
 				        delete ult->sig;
 				        aux->sig=prim;
 				        prim->ant = aux;

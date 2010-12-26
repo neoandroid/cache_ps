@@ -115,6 +115,9 @@ public:
   cache_LFU& operator=(const cache_LFU& c) throw(error);
   ~cache_LFU() throw();
 
+
+
+
   cache* clone() const throw(error);
   void flush() throw(error);
   file::pagina get_read(nat i) throw(error);
@@ -123,6 +126,10 @@ public:
 
 private:
   #include "cache_LFU.rep"
+  void meter_en_cache(cache_LFU::nodo* c, cache_LFU::nodo *l);
+  void eliminar_nodo(int i,cache_LFU::nodo* l);
+  bool estaencache(int i,cache_LFU::nodo &n,cache_LFU::nodo* l);
+  cache_LFU::nodo* copia_nodo(cache_LFU::nodo* p);
 };
 
 #endif
