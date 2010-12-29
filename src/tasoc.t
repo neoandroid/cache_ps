@@ -1,5 +1,5 @@
 template <class T, template <class> class HashFunct = Hash>
-tasoc<T, HashFunct<T> >::tasoc(const string& filename, cache* pC , nat M , nat Mt) throw(error)
+tasoc<T,Hash >::tasoc(const string& filename, cache* pC , nat M , nat Mt) throw(error)
 {
 	fileName = *filename;
 	tabla = new int[Mt][2];
@@ -14,7 +14,7 @@ tasoc<T, Hash >::~tasoc() throw(){
 }
 
 template <class T, template <class> class HashFunct = Hash>
-void tasoc<T,Hash<T>>::inserta(const T& x) throw(error)
+void tasoc<T>::inserta(const T& x) throw(error)
 {
 	if (!contiene(x))
 	{
